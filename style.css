@@ -1,0 +1,368 @@
+@import url('https://fonts.googleapis.com/css2?family=Kanit&display=swap');
+
+body {
+    font-family: "Kanit", serif;
+    font-weight: 400;
+    font-style: normal;
+    background-color: #1c1c29;
+}
+
+h1 {
+    font-size: 30px;
+    color: #ffffff;
+    text-align: center;
+    margin: 10px 0px 0px 0px;
+}
+
+
+h2 {
+    font-size: 20px;
+    color: #ffffff;
+    text-align: center;
+    margin: 20px 5px 0px 0px;
+}
+
+p {
+    color: #ffffff;
+}
+
+#container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: 0px 15px;
+
+}
+
+.intestazione {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 50px;
+}
+.titolo {
+    color: #ffffff;
+    font-size: 40px;
+    margin: 10px;
+    text-align: left;
+    margin-left: 20px;
+}
+
+#preset-area {
+    margin-bottom: 10px;
+    margin-left: 20px;
+    margin-right: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: left;
+}
+
+.preset-text {
+    color: #ffffff;
+    font-size: 20px;
+    text-align: right;
+}
+#preset-select {
+    font-family: "Kanit", serif;
+    font-weight: 400;
+    font-style: normal;
+    font-size: 20px;
+    height: 50px;
+    width: 160px;
+    margin-left: 15px;
+    margin-right: 15px;
+    text-align: center;
+    border-radius: 10px;
+    background-color: #444456;
+    color: #ffffff;
+}
+
+
+#calculator {
+    /* Stili preesistenti per i singoli blocchi (input-area, output-area, ecc.) */
+    width: 95%;
+    /* O la larghezza che preferisci */
+    margin: 30px 10px;
+    border: 3px solid #bebebe;
+    padding: 30px 20px;
+    border-radius: 15px;
+}
+
+
+
+.slider-container {
+    margin-bottom: 10px;
+    height: 35px;
+    display: flex;
+    align-items: center;
+}
+
+.slider {
+    -webkit-appearance: none;
+    /* Rimuove lo stile predefinito */
+    appearance: none;
+    width: 100%;
+    height: 8px;
+    background: #ddd;
+    border-radius: 4px;
+    outline: none;
+}
+
+/* Stile del cursore per Chrome, Safari e Edge */
+.slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 20px;
+    height: 20px;
+    background: #04ffff;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+/* Stile del cursore per Firefox */
+.slider::-moz-range-thumb {
+    width: 20px;
+    height: 20px;
+    background: #04ffff;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+
+
+.etichetta {
+    width: 200px;
+    margin: 10px;
+    color: #ffffff;
+    font-size: 20px
+}
+
+.etichetta2 {
+    color: #ffffff;
+    font-size: 25px ;
+    width: 150px;
+    padding-right: 20px;
+    text-align: right;
+}
+
+
+
+.interval-container {
+    display: flex;
+    align-items: center;
+
+}
+
+#control-buttons {
+    display: flex;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+
+.judgment-button {
+    height: 40px;
+    width: 160px;
+    padding: 10px;
+    margin: 5px;
+    font-size: 16px;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+}
+
+/* Stili per i bottoni dei giudizi in base al loro stato */
+.judgment-button.u {
+    font-family: "Kanit", serif;
+    font-weight: 400;
+    font-style: normal;
+    background-color: #2d2d35;
+    color: rgb(255, 255, 255);
+}
+
+.judgment-button.o {
+    font-family: "Kanit", serif;
+    font-weight: 400;
+    font-style: normal;
+    background-color: #1a3f44;
+    color: #00ffff;
+}
+
+.judgment-button.g {
+    font-family: "Kanit", serif;
+    font-weight: 400;
+    font-style: normal;
+    background-color: #2f414d;
+    color: #00ffff;
+}
+
+.judgment-button.d {
+    font-family: "Kanit", serif;
+    font-weight: 400;
+    font-style: normal;
+    background-color: #444456;
+    color: rgb(255, 255, 255);
+}
+
+.judgment-button.p {
+    font-family: "Kanit", serif;
+    font-weight: 400;
+    font-style: normal;
+    background-color: #48334b;
+    color: #ff4869;
+}
+
+.judgment-button.m {
+    font-family: "Kanit", serif;
+    font-weight: 400;
+    font-style: normal;
+    background-color: #48334b;
+    color: #ff4869;
+}
+
+
+
+
+
+
+
+.interval-background {
+    width: 100%;
+    height: 40px;
+    background-color: #434852;
+    border-radius: 5px;
+    overflow: hidden;
+    position: relative;
+    margin: 10px;
+}
+
+.interval-bar {
+    height: 100%;
+    background-color: #307c82;
+    position: absolute;
+    z-index: 1;
+}
+
+.interval-bar-previous {
+    height: 100%;
+    background-color: #ff4665;
+    position: absolute;
+    z-index: 0;
+}
+
+.suggested-marker {
+    position: absolute;
+    top: 0;
+    left: 0;
+    /* Verrà modificato da JavaScript */
+    width: 3px;
+    height: 100%;
+    background-color: #00fef6;
+    z-index: 2;
+    /* Assicura che il marker sia sopra gli altri rettangoli */
+}
+
+.current-marker {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 3px;
+    height: 100%;
+    background-color: #fefbf7;
+    z-index: 3;
+    /* Assicura che il marker sia sopra tutti gli altri elementi */
+}
+
+
+
+
+
+#control-buttons {
+    display: flex;
+    justify-content: space-around;
+}
+
+.setup-button {
+    height: 50px;
+    width: 150px;
+    padding: 10px 20px;
+    font-size: 18px;
+    border-radius: 5px;
+    margin: 10px;
+    border: none;
+    cursor: pointer;
+    font-family: "Kanit", serif;
+    font-weight: 400;
+    font-style: normal;
+}
+
+
+#next-button {
+    height: 50px;
+    width: 150px;
+    padding: 10px 20px;
+    font-size: 18px;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+    font-family: "Kanit", serif;
+    font-weight: 400;
+    font-style: normal;
+}
+
+#calculate-button, #calculate-button_2 {
+    background-color: #2ca06a;
+    color: #fefbf7;
+}
+
+#undo-button, #undo-button_2 {
+    background-color: #d8a927;
+    color: #fefbf7;
+}
+
+#reset-button, #reset-button_2 {
+    background-color: #ff4665;
+    color: #fefbf7;
+}
+
+#preset-button, #preset-button_2 {
+    background-color: #307c82;
+    color: #fefbf7;
+}
+
+#next-button {
+    background-color: #307c82;
+    color: #fefbf7;
+}
+
+
+
+
+
+/* Stili per schermi larghi (orizzontali) */
+@media (min-width: 1500px) {
+
+    /* Scegli la larghezza che preferisci come breakpoint */
+    #container {
+        flex-direction: row;
+        /* Imposta la direzione a riga (orizzontale) */
+    }
+
+    #calculator {
+        margin: 0 30px;
+        border: 3px solid #bebebe;
+        padding: 0px 20px;
+        border-radius: 15px;
+    }
+    .intestazione {
+        margin: 0px;
+    
+    
+    }
+
+
+
+}

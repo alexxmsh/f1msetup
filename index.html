@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="F1 Manager 2024 Setup Calculator">
+    <title>F1M 24 Setup Calculator</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="apple-touch-icon" sizes="180x180" href="assets/ico180.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="assets/ico32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="assets/ico16.png">
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#1c1c29">
+</head>
+
+<body>
+    <div class="intestazione">
+    <h1 class="titolo">F1M 24 Setup Calculator</h1>
+    <div id="preset-area">
+        <p class="preset-text" >Track preset:</p>
+        <select id="preset-select"></select>
+        <button id="next-button">Next Track</button>
+    </div>
+    </div>
+    <div id="container">
+
+        <div id="calculator">
+            <h1>Driver 1</h1>
+            <div id="input-area">
+                <h2>Setup</h2>
+                <div class="slider-container">
+                    <p class="etichetta" >Front angle</p>
+                    <input type="range" min="0" max="20" value="0" class="slider" id="slider-A">
+                    <span class="etichetta2" id="value-A">0.0</span>
+                </div>
+                <div class="slider-container">
+                    <p class="etichetta" >Rear angle</p>
+                    <input type="range" min="0" max="14" value="0" class="slider" id="slider-B">
+                    <span class="etichetta2" id="value-B">9.0</span>
+                </div>
+                <div class="slider-container">
+                    <p class="etichetta" >Anti-Roll</p>
+                    <input type="range" min="0" max="8" value="0" class="slider" id="slider-C">
+                    <span class="etichetta2" id="value-C">9:1</span>
+                </div>
+                <div class="slider-container">
+                    <p class="etichetta" >Tyre Camber</p>
+                    <input type="range" min="0" max="16" value="0" class="slider" id="slider-D">
+                    <span class="etichetta2" id="value-D">-2.70°</span>
+                </div>
+                <div class="slider-container">
+                    <p class="etichetta" >Toe-Out</p>
+                    <input type="range" min="0" max="20" value="0" class="slider" id="slider-E">
+                    <span class="etichetta2" id="value-E">0.00°</span>
+                </div>
+            </div>
+            
+            <div id="current-intervals">
+                <h2>Feedbacks</h2>
+                <div class="interval-container" id="interval-container-a">
+                    <p class="etichetta" >Oversteer</p>
+                    <div class="interval-background">
+                        <div class="interval-bar" id="interval-bar-a"></div>
+                        <div class="interval-bar-previous" id="interval-bar-previous-a"></div>
+                        <div class="suggested-marker" id="suggested-marker-a"></div>
+                        <div class="current-marker" id="current-marker-a"></div>
+                    </div>
+                    <button class="judgment-button" id="button-a">Unknown</button>
+                </div>
+                <div class="interval-container" id="interval-container-b">
+                    <p class="etichetta" >Braking</p>
+                    <div class="interval-background">
+                        <div class="interval-bar" id="interval-bar-b"></div>
+                        <div class="interval-bar-previous" id="interval-bar-previous-b"></div>
+                        <div class="suggested-marker" id="suggested-marker-b"></div>
+                        <div class="current-marker" id="current-marker-b"></div>
+                    </div>
+                    <button class="judgment-button" id="button-b">Unknown</button>
+                </div>
+                <div class="interval-container" id="interval-container-c">
+                    <p class="etichetta" >Cornering</p>
+                    <div class="interval-background">
+                        <div class="interval-bar" id="interval-bar-c"></div>
+                        <div class="interval-bar-previous" id="interval-bar-previous-c"></div>
+                        <div class="suggested-marker" id="suggested-marker-c"></div>
+                        <div class="current-marker" id="current-marker-c"></div>
+                    </div>
+                    <button class="judgment-button" id="button-c">Unknown</button>
+                </div>
+                <div class="interval-container" id="interval-container-d">
+                    <p class="etichetta" >Traction</p>
+                    <div class="interval-background">
+                        <div class="interval-bar" id="interval-bar-d"></div>
+                        <div class="interval-bar-previous" id="interval-bar-previous-d"></div>
+                        <div class="suggested-marker" id="suggested-marker-d"></div>
+                        <div class="current-marker" id="current-marker-d"></div>
+                    </div>
+                    <button class="judgment-button" id="button-d">Unknown</button>
+                </div>
+                <div class="interval-container" id="interval-container-e">
+                    <p class="etichetta" >Straights</p>
+                    <div class="interval-background">
+                        <div class="interval-bar" id="interval-bar-e"></div>
+                        <div class="interval-bar-previous" id="interval-bar-previous-e"></div>
+                        <div class="suggested-marker" id="suggested-marker-e"></div>
+                        <div class="current-marker" id="current-marker-e"></div>
+                    </div>
+                    <button class="judgment-button" id="button-e">Unknown</button>
+                </div>
+            </div>
+            <div id="output-area">
+                <p>Info: <span id="messages"> ... </span></p>
+            </div>
+            <div id="control-buttons">
+                <button class="setup-button" id="calculate-button">Calculate</button>
+                <button class="setup-button" id="undo-button">Cancel</button>
+                <button class="setup-button" id="preset-button">Preset</button>
+                <button class="setup-button" id="reset-button">Reset</button>
+            </div>
+        </div>
+
+
+
+        <div id="calculator">
+            <h1>Driver 2</h1>
+            <div id="input-area">
+                <h2>Setup</h2>
+                <div class="slider-container">
+                    <p class="etichetta" >Front angle</p>
+                    <input type="range" min="0" max="20" value="0" class="slider" id="slider-A_2">
+                    <span class="etichetta2" id="value-A_2">0.0</span>
+                </div>
+                <div class="slider-container">
+                    <p class="etichetta" >Rear angle</p>
+                    <input type="range" min="0" max="14" value="0" class="slider" id="slider-B_2">
+                    <span class="etichetta2" id="value-B_2">9.0</span>
+                </div>
+                <div class="slider-container">
+                    <p class="etichetta" >Anti-Roll</p>
+                    <input type="range" min="0" max="8" value="0" class="slider" id="slider-C_2">
+                    <span class="etichetta2" id="value-C_2">9:1</span>
+                </div>
+                <div class="slider-container">
+                    <p class="etichetta" >Tyre Camber</p>
+                    <input type="range" min="0" max="16" value="0" class="slider" id="slider-D_2">
+                    <span class="etichetta2" id="value-D_2">-2.70°</span>
+                </div>
+                <div class="slider-container">
+                    <p class="etichetta" >Toe-Out</p>
+                    <input type="range" min="0" max="20" value="0" class="slider" id="slider-E_2">
+                    <span class="etichetta2" id="value-E_2">0.00°</span>
+                </div>
+            </div>
+            <div id="current-intervals">
+                <h2>Feedbacks</h2>
+                <div class="interval-container" id="interval-container-a_2">
+                    <p class="etichetta" >Oversteer</p>
+                    <div class="interval-background">
+                        <div class="interval-bar" id="interval-bar-a_2"></div>
+                        <div class="interval-bar-previous" id="interval-bar-previous-a_2"></div>
+                        <div class="suggested-marker" id="suggested-marker-a_2"></div>
+                        <div class="current-marker" id="current-marker-a_2"></div>
+                    </div>
+                    <button class="judgment-button" id="button-a_2">Unknown</button>
+                </div>
+                <div class="interval-container" id="interval-container-b_2">
+                    <p class="etichetta" >Braking</p>
+                    <div class="interval-background">
+                        <div class="interval-bar" id="interval-bar-b_2"></div>
+                        <div class="interval-bar-previous" id="interval-bar-previous-b_2"></div>
+                        <div class="suggested-marker" id="suggested-marker-b_2"></div>
+                        <div class="current-marker" id="current-marker-b_2"></div>
+                    </div>
+                    <button class="judgment-button" id="button-b_2">Unknown</button>
+                </div>
+                <div class="interval-container" id="interval-container-c_2">
+                    <p class="etichetta" >Cornering</p>
+                    <div class="interval-background">
+                        <div class="interval-bar" id="interval-bar-c_2"></div>
+                        <div class="interval-bar-previous" id="interval-bar-previous-c_2"></div>
+                        <div class="suggested-marker" id="suggested-marker-c_2"></div>
+                        <div class="current-marker" id="current-marker-c_2"></div>
+                    </div>
+                    <button class="judgment-button" id="button-c_2">Unknown</button>
+                </div>
+                <div class="interval-container" id="interval-container-d_2">
+                    <p class="etichetta" >Traction</p>
+                    <div class="interval-background">
+                        <div class="interval-bar" id="interval-bar-d_2"></div>
+                        <div class="interval-bar-previous" id="interval-bar-previous-d_2"></div>
+                        <div class="suggested-marker" id="suggested-marker-d_2"></div>
+                        <div class="current-marker" id="current-marker-d_2"></div>
+                    </div>
+                    <button class="judgment-button" id="button-d_2">Unknown</button>
+                </div>
+                <div class="interval-container" id="interval-container-e_2">
+                    <p class="etichetta" >Straights</p>
+                    <div class="interval-background">
+                        <div class="interval-bar" id="interval-bar-e_2"></div>
+                        <div class="interval-bar-previous" id="interval-bar-previous-e_2"></div>
+                        <div class="suggested-marker" id="suggested-marker-e_2"></div>
+                        <div class="current-marker" id="current-marker-e_2"></div>
+                    </div>
+                    <button class="judgment-button" id="button-e_2">Unknown</button>
+                </div>
+            </div>
+            <div id="output-area">
+                <p>Info: <span id="messages_2"> ... </span></p>
+            </div>
+            <div id="control-buttons">
+                <button class="setup-button" id="calculate-button_2">Calculate</button>
+                <button class="setup-button" id="undo-button_2">Cancel</button>
+                <button class="setup-button" id="preset-button_2">Preset</button>
+                <button class="setup-button" id="reset-button_2">Reset</button>
+            </div>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+
+</html>
