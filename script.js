@@ -213,6 +213,10 @@ document.getElementById('calculate-button').addEventListener('click', function (
     const judgment_d = document.getElementById('button-d').getAttribute('data-judgment');
     const judgment_e = document.getElementById('button-e').getAttribute('data-judgment');
 
+    // Verifica se almeno un giudizio è diverso da 'o' e 'u'
+    const judge = [judgment_a, judgment_b, judgment_c, judgment_d, judgment_e];
+    const isAnyJudgmentNotOptimalOrUnknown = judge.some(judgment => judgment !== 'o' && judgment !== 'u');
+
     // Aggiorna gli intervalli in base ai giudizi
     try {
         const new_intervals_a = aggiorna_intervalli(calculated_a, judgment_a, intervals[0]);
@@ -235,6 +239,16 @@ document.getElementById('calculate-button').addEventListener('click', function (
         intervals_history.push(intervals.map(intervallo => [...intervallo])); // Crea una copia profonda
 
         // Aggiorna la matrice delle combinazioni
+        if (isAnyJudgmentNotOptimalOrUnknown) {
+            // Rimuovi la combinazione corrente da matrice_combinazioni
+            matrice_combinazioni = matrice_combinazioni.filter(combination => {
+                return combination[0] !== current_A ||
+                       combination[1] !== current_B ||
+                       combination[2] !== current_C ||
+                       combination[3] !== current_D ||
+                       combination[4] !== current_E;
+            });
+        }
         matrice_combinazioni = aggiorna_soluzioni(matrice_combinazioni, intervals);
 
         // Sposta gli slider sulla posizione suggerita, se ci sono combinazioni rimaste
@@ -304,6 +318,10 @@ document.getElementById('calculate-button_2').addEventListener('click', function
     const judgment_d_2 = document.getElementById('button-d_2').getAttribute('data-judgment');
     const judgment_e_2 = document.getElementById('button-e_2').getAttribute('data-judgment');
 
+    // Verifica se almeno un giudizio è diverso da 'o' e 'u'
+    const judge = [judgment_a_2, judgment_b_2, judgment_c_2, judgment_d_2, judgment_e_2];
+    const isAnyJudgmentNotOptimalOrUnknown = judge.some(judgment => judgment !== 'o' && judgment !== 'u');
+
     // Aggiorna gli intervalli in base ai giudizi
     try {
         const new_intervals_a_2 = aggiorna_intervalli(calculated_a_2, judgment_a_2, intervals_2[0]);
@@ -326,6 +344,16 @@ document.getElementById('calculate-button_2').addEventListener('click', function
         intervals_history_2.push(intervals_2.map(intervallo => [...intervallo])); // Crea una copia profonda
 
         // Aggiorna la matrice delle combinazioni
+        if (isAnyJudgmentNotOptimalOrUnknown) {
+            // Rimuovi la combinazione corrente da matrice_combinazioni
+            matrice_combinazioni_2 = matrice_combinazioni_2.filter(combination => {
+                return combination[0] !== current_A_2 ||
+                       combination[1] !== current_B_2 ||
+                       combination[2] !== current_C_2 ||
+                       combination[3] !== current_D_2 ||
+                       combination[4] !== current_E_2;
+            });
+        }
         matrice_combinazioni_2 = aggiorna_soluzioni(matrice_combinazioni_2, intervals_2);
 
         // Sposta gli slider sulla posizione suggerita, se ci sono combinazioni rimaste
@@ -352,7 +380,7 @@ document.getElementById('calculate-button_2').addEventListener('click', function
 
     for (let i = 0; i < buttons_2.length; i++) {
         if (judgments_2[i] !== 'u') {
-            const button = document.getElementById(buttons[i]);
+            const button = document.getElementById(buttons_2[i]);
             button.setAttribute('data-judgment', 'u');
             button.classList.remove(...button.classList);
             button.classList.add('judgment-button', 'u');
