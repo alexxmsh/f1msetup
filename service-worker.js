@@ -9,8 +9,8 @@ self.addEventListener('install', (event) => {
               'presets.json',
               'script.js',
               'app.js',
-              'assets/ico192.png',
-              'assets/ico512.png'
+              'assets/ico192_maskable.png',
+              'assets/ico512_maskable.png'
           ]);
       })
   );
