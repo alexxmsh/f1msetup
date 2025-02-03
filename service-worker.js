@@ -54,7 +54,7 @@ self.addEventListener('fetch', (event) => {
                   }
                   // Fallback per richieste specifiche (esempio: JSON o HTML)
                   if (event.request.url.endsWith('.json')) {
-                      return caches.match('menu.json');
+                      return caches.match('presets.json');
                   } else if (event.request.headers.get('accept').includes('text/html')) {
                       return caches.match('index.html');
                   }
