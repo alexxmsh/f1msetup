@@ -25,122 +25,178 @@
     },
     {
       "name": "03 - Australia, Melbourne",
-      "A": 20,
-      "B": 14,
-      "C": 0,
-      "D": 16,
-      "E": 20
+      "A": 17,
+      "B": 8,
+      "C": 3,
+      "D": 10,
+      "E": 14
     },
     {
       "name": "04 - Japan, Suzuka",
+      "A": 14,
+      "B": 8,
+      "C": 4,
+      "D": 15,
+      "E": 0
+    },
+    {
+      "name": "05 - China, Shanghai",
+      "A": 6,
+      "B": 5,
+      "C": 7,
+      "D": 2,
+      "E": 16
+    },
+    {
+      "name": "06 - USA, Miami",
+      "A": 15,
+      "B": 9,
+      "C": 6,
+      "D": 7,
+      "E": 16
+    },
+    {
+      "name": "07 - Italy, Imola",
+      "A": 13,
+      "B": 8,
+      "C": 5,
+      "D": 16,
+      "E": 0
+    },
+    {
+      "name": "08 - Monaco, Monte Carlo",
       "A": 20,
       "B": 14,
+      "C": 1,
+      "D": 13,
+      "E": 13
+    },
+    {
+      "name": "09 - Canada, Montreal",
+      "A": 7,
+      "B": 6,
+      "C": 7,
+      "D": 9,
+      "E": 16
+    },
+    {
+      "name": "10 - Spain, Barcelona",
+      "A": 17,
+      "B": 10,
+      "C": 2,
+      "D": 11,
+      "E": 16
+    },
+    {
+      "name": "11 - Austria, Spielberg",
+      "A": 10,
+      "B": 8,
+      "C": 8,
+      "D": 8,
+      "E": 16
+    },
+    {
+      "name": "12 - Great Britain, Silverstone",
+      "A": 12,
+      "B": 5,
       "C": 0,
-      "D": 16,
+      "D": 11,
+      "E": 7
+    },
+    {
+      "name": "13 - Hungary, Budapest",
+      "A": 19,
+      "B": 12,
+      "C": 7,
+      "D": 10,
+      "E": 15
+    },
+    {
+      "name": "14 - Belgium, Spa Francorchamps",
+      "A": 6,
+      "B": 1,
+      "C": 5,
+      "D": 14,
+      "E": 12
+    },
+    {
+      "name": "15 - Netherlands, Zandvoort",
+      "A": 19,
+      "B": 9,
+      "C": 3,
+      "D": 9,
+      "E": 18
+    },
+    {
+      "name": "16 - Italy, Monza",
+      "A": 2,
+      "B": 0,
+      "C": 8,
+      "D": 6,
+      "E": 18
+    },
+    {
+      "name": "17 - Azerbaijan, Baku",
+      "A": 3,
+      "B": 3,
+      "C": 6,
+      "D": 5,
+      "E": 17
+    },
+    {
+      "name": "18 - Singapore, Marina Bay",
+      "A": 16,
+      "B": 13,
+      "C": 1,
+      "D": 1,
       "E": 20
     },
     {
-      "name": "Preset 3",
-      "A": 20,
-      "B": 14,
-      "C": 0,
-      "D": 16,
-      "E": 20
+      "name": "19 - USA, Austin",
+      "A": 16,
+      "B": 8,
+      "C": 7,
+      "D": 15,
+      "E": 5
     },
     {
-      "name": "Preset 3",
-      "A": 20,
-      "B": 14,
-      "C": 0,
-      "D": 16,
-      "E": 20
+      "name": "20 - Mexico, Mexico City",
+      "A": 13,
+      "B": 8,
+      "C": 7,
+      "D": 15,
+      "E": 7
     },
     {
-      "name": "Preset 3",
-      "A": 20,
-      "B": 14,
-      "C": 0,
-      "D": 16,
-      "E": 20
+      "name": "21 - Brazil, Sao Paulo",
+      "A": 14,
+      "B": 8,
+      "C": 7,
+      "D": 14,
+      "E": 11
     },
     {
-      "name": "Preset 3",
-      "A": 20,
-      "B": 14,
-      "C": 0,
-      "D": 16,
-      "E": 20
+      "name": "22 - USA, Las Vegas",
+      "A": 0,
+      "B": 3,
+      "C": 8,
+      "D": 6,
+      "E": 11
     },
     {
-      "name": "Preset 3",
-      "A": 20,
-      "B": 14,
-      "C": 0,
-      "D": 16,
-      "E": 20
+      "name": "23 - Qatar, Lusail",
+      "A": 16,
+      "B": 8,
+      "C": 2,
+      "D": 13,
+      "E": 18
     },
     {
-      "name": "Preset 3",
-      "A": 20,
-      "B": 14,
-      "C": 0,
-      "D": 16,
-      "E": 20
-    },
-    {
-      "name": "Preset 3",
-      "A": 20,
-      "B": 14,
-      "C": 0,
-      "D": 16,
-      "E": 20
-    },
-    {
-      "name": "Preset 3",
-      "A": 20,
-      "B": 14,
-      "C": 0,
-      "D": 16,
-      "E": 20
-    },
-    {
-      "name": "Preset 3",
-      "A": 20,
-      "B": 14,
-      "C": 0,
-      "D": 16,
-      "E": 20
-    },
-    {
-      "name": "Preset 3",
-      "A": 20,
-      "B": 14,
-      "C": 0,
-      "D": 16,
-      "E": 20
-    },
-    {
-      "name": "Preset 3",
-      "A": 20,
-      "B": 14,
-      "C": 0,
-      "D": 16,
-      "E": 20
-    },
-    {
-      "name": "Preset 3",
-      "A": 20,
-      "B": 14,
-      "C": 0,
-      "D": 16,
-      "E": 20
-    },
-    {
-      "name": "Preset 3",
-      "A": 20,
-      "B": 14,
-      "C": 0,
-      "D": 16,
-      "E": 20
+      "name": "24 - Abu Dhabi, Yas Marina",
+      "A": 10,
+      "B": 7,
+      "C": 6,
+      "D": 12,
+      "E": 19
     }
   ]
