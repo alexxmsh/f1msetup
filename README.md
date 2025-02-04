@@ -58,9 +58,3 @@ If you'd like to contribute to improving this project, feel free to:
 *   Report bugs or issues through GitHub **Issues**.
 *   Suggest new features.
 *   Submit **Pull Requests** with code enhancements.
-
-*   Create a `LICENSE` file in your repository with the text of the MIT License (or another license of your choice).
-*   Consider adding screenshots or animated GIFs to better illustrate the use of the application.
-*   Add a `presets.json` file with the default track presets.
-
-Spero che questa versione aggiornata del README sia di tuo gradimento! Fammi sapere se hai altre domande o modifiche da apportare.
