@@ -1,6 +1,6 @@
 # F1M 24 Setup Calculator 🏎️💨
 
-This project is an intuitive **F1 Manager 2024** (F1M 24) setup calculator 🧮. It helps you find the optimal car setup for each track, improving your race performance and helping you secure those podium finishes! 🏁
+This project is an intuitive **F1 Manager 2024** setup calculator 🧮. It helps you find the optimal car setup for each track, improving your race performance and helping you secure those podium finishes! 🏁
 
 **Try it now!** 👉 [https://alexxmsh.github.io/f1msetup/](https://alexxmsh.github.io/f1msetup/) 👈
 
