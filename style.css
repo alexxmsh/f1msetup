@@ -14,7 +14,6 @@ h1 {
     margin: 10px 0px 0px 0px;
 }
 
-
 h2 {
     font-size: 20px;
     color: #ffffff;
@@ -42,6 +41,7 @@ p {
     align-items: center;
     margin-top: 50px;
 }
+
 .titolo {
     color: #ffffff;
     font-size: 40px;
@@ -64,6 +64,7 @@ p {
     font-size: 20px;
     text-align: right;
 }
+
 #preset-select {
     font-family: "Kanit", serif;
     font-weight: 400;
@@ -79,7 +80,6 @@ p {
     color: #ffffff;
 }
 
-
 #calculator {
     /* Stili preesistenti per i singoli blocchi (input-area, output-area, ecc.) */
     width: 95%;
@@ -89,8 +89,6 @@ p {
     padding: 30px 20px;
     border-radius: 15px;
 }
-
-
 
 .slider-container {
     margin-bottom: 10px;
@@ -130,8 +128,6 @@ p {
     cursor: pointer;
 }
 
-
-
 .etichetta {
     width: 200px;
     margin: 10px;
@@ -141,13 +137,11 @@ p {
 
 .etichetta2 {
     color: #ffffff;
-    font-size: 25px ;
+    font-size: 25px;
     width: 150px;
     padding-right: 20px;
     text-align: right;
 }
-
-
 
 .interval-container {
     display: flex;
@@ -161,7 +155,6 @@ p {
     align-items: center;
     justify-content: center;
 }
-
 
 .judgment-button {
     height: 40px;
@@ -223,12 +216,6 @@ p {
     color: #ff4869;
 }
 
-
-
-
-
-
-
 .interval-background {
     width: 100%;
     height: 40px;
@@ -276,10 +263,6 @@ p {
     /* Assicura che il marker sia sopra tutti gli altri elementi */
 }
 
-
-
-
-
 #control-buttons {
     display: flex;
     justify-content: space-around;
@@ -299,7 +282,6 @@ p {
     font-style: normal;
 }
 
-
 #next-button {
     height: 50px;
     width: 150px;
@@ -313,22 +295,26 @@ p {
     font-style: normal;
 }
 
-#calculate-button, #calculate-button_2 {
+#calculate-button,
+#calculate-button_2 {
     background-color: #2ca06a;
     color: #fefbf7;
 }
 
-#undo-button, #undo-button_2 {
+#undo-button,
+#undo-button_2 {
     background-color: #d8a927;
     color: #fefbf7;
 }
 
-#reset-button, #reset-button_2 {
+#reset-button,
+#reset-button_2 {
     background-color: #ff4665;
     color: #fefbf7;
 }
 
-#preset-button, #preset-button_2 {
+#preset-button,
+#preset-button_2 {
     background-color: #307c82;
     color: #fefbf7;
 }
@@ -337,10 +323,6 @@ p {
     background-color: #307c82;
     color: #fefbf7;
 }
-
-
-
-
 
 /* Stili per schermi larghi (orizzontali) */
 @media (min-width: 1500px) {
@@ -357,12 +339,8 @@ p {
         padding: 0px 20px;
         border-radius: 15px;
     }
+
     .intestazione {
         margin: 0px;
-    
-    
     }
-
-
-
 }
