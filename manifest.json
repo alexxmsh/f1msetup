@@ -1,22 +1,22 @@
 {
-    "name": "F1M 24 Setup Calculator",
-    "short_name": "F1M24 Setup",
-    "start_url": "index.html",
-    "display": "standalone",
-    "background_color": "#1c1c29",
-    "theme_color": "#1c1c29",
-    "icons": [
-      {
-        "src": "assets/ico192_maskable.png",
-        "sizes": "192x192",
-        "type": "image/png",
-        "purpose": "maskable"
-      },
-      {
-        "src": "assets/ico512_maskable.png",
-        "sizes": "512x512",
-        "type": "image/png",
-        "purpose": "maskable"
-      }
-    ]
-  }
+  "name": "F1 Manager 2024 Setup Calculator",
+  "short_name": "F1M24 Setup",
+  "start_url": "index.html",
+  "display": "standalone",
+  "background_color": "#1c1c29",
+  "theme_color": "#1c1c29",
+  "icons": [
+    {
+      "src": "assets/ico192_maskable.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "maskable"
+    },
+    {
+      "src": "assets/ico512_maskable.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ]
+}
