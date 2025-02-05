@@ -337,12 +337,19 @@ footer p {
     margin: 5px 0;     /* Spaziatura tra le righe */
 }
 
-footer a {
-    color: #00ffff;     /* Colore del link */
-    text-decoration: none; /* Rimuove la sottolineatura (opzionale) */
+.bold-text {
+    font-weight: bold; /* Grassetto SOLO per gli span con questa classe */
 }
-footer a:hover{
-    text-decoration: underline;
+
+footer a {
+    color: #307c82;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+footer a:hover {
+    color: #00ffff;
+    text-decoration: none;
 }
 
 /* Stili per schermi larghi (orizzontali) */
