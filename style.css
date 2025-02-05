@@ -324,6 +324,27 @@ p {
     color: #fefbf7;
 }
 
+footer {
+    text-align: center; /* Centra il testo */
+    margin-top: 50px;  /* Aggiunge spazio sopra il footer */
+    padding: 20px;     /* Aggiunge spazio interno al footer */
+    border-top: 1px solid #444456; /* Linea divisoria superiore (opzionale) */
+}
+
+footer p {
+    color: #bebebe;       /* Colore del testo */
+    font-size: 14px;    /* Dimensione del testo (regolabile) */
+    margin: 5px 0;     /* Spaziatura tra le righe */
+}
+
+footer a {
+    color: #00ffff;     /* Colore del link */
+    text-decoration: none; /* Rimuove la sottolineatura (opzionale) */
+}
+footer a:hover{
+    text-decoration: underline;
+}
+
 /* Stili per schermi larghi (orizzontali) */
 @media (min-width: 1500px) {
 
