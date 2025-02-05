@@ -16,18 +16,59 @@ This project is an intuitive **F1 Manager 2024** setup calculator 🧮. It helps
 
 ## How to Use the Application 📝
 
-1.  **Select the Track:** 🌍 Use the dropdown menu at the top to choose the desired track. You can also use the "Next Track" button to cycle through the tracks in order.
-2.  **Enter Feedback:** 🗣️ For each area (Oversteer, Braking, Cornering, Traction, Straights), click the "Unknown" button and select the appropriate feedback (e.g., "Great," "Too Low," "Too High") based on the car's behavior.
-3.  **Adjust Sliders (Optional):** 🎚️ You can manually adjust the setup sliders if you want to experiment with values different from the suggestions.
-4.  **Click "Calculate":** 💻 The calculator will process the data and display the recommended setup using the "Suggested" markers on the graphs.
-5.  **Apply Setup in Game:** 🎮 Input the suggested values into the F1 Manager 2024 game.
+This tool helps you find the optimal car setup in F1 Manager 2024. Here's how to use it:
 
-**Button Functionality:**
+### 1. Select the Track 🌍
 
-*   **Calculate:** 🧮 Calculates the optimal setup based on the provided feedback.
-*   **Cancel:** ↩️ Reverts the last change made.
-*   **Preset:** 💾 Loads the default setup for the selected track.
-*   **Reset:** 🔄 Resets all values and feedback to their initial state.
+*   Choose the circuit you're working on from the "Track preset:" dropdown menu.  This will automatically set the sliders to a good starting point (preset) for that track.  Using presets is optional, but it can save you time.
+*   You can also use the "Next Track" button. This button does the same thing of reset button, but it selects the next track.
+
+### 2. Test the Initial Setup (or Your Own) 🎚️
+
+*   Take the slider values shown on the website and enter them into the F1 Manager 2024 game.
+*   Drive several laps with this setup.
+*   **Important:** If you decide *not* to use the suggested preset values, make sure to manually adjust the sliders *on the website* to match the setup you're actually using in the game.
+
+### 3. Provide Feedback 🗣️
+
+*   After your test laps, your driver in the game will give you feedback about the car's handling.
+*   For *each* of the five areas (Oversteer, Braking, Cornering, Traction, Straights), click the button next to the graph.
+*   Each click cycles through the feedback options:
+    *   **Unknown**   (use this if you don't have feedback for that area yet)
+    *   **Optimal**
+    *   **Great**
+    *   **Good**
+    *   **Bad +**   (the feedback value needs to be *higher*)
+    *   **Bad -**   (the feedback value needs to be *lower*)
+* You must give, at least, one feedback to continue and this feedback must be different from UNKNOWN.
+
+### 4. Calculate 💻
+
+*   Click the "Calculate" button.
+*   The application will process your feedback and suggest a *new* set of slider values. The sliders will *automatically move* to this new suggested setup.
+*   The graphs will update to visually show:
+     * The suggested values (light blue marker).
+     * The current slider values (white marker).
+*   The "Info" area will show you how many possible setup combinations are remaining, and any important messages.
+
+### 5. Repeat 🔄
+
+*   Go back to the game and test the *new* suggested setup.
+*   Provide updated feedback.
+*   Click "Calculate" again.
+*   Keep repeating this process until the application finds the single, optimal setup (or until you're happy).
+
+### Button Summary
+
+*   🧮 **Calculate:** Processes your feedback and suggests a new setup.
+*   ↩️ **Cancel:** Reverts to the previous setup suggestion.
+*   💾 **Preset:** Resets the sliders to the initial preset values for the selected track *without* clearing your feedback history.
+*   🔄 **Reset:** Completely resets everything (sliders, feedback, and calculation history) for the current driver.
+*   ⏩ **Next Track:** Resets everything and loads the preset for the next track in the list.
+
+### Working with Both Drivers
+
+The "First Driver" and "Second Driver" sections work *independently*. You can use this tool to find optimal setups for both of your drivers simultaneously. The only thing shared between the two is the selected track preset.
 
 ## Installation as a Web App 📲
 
