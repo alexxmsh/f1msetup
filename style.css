@@ -1,3 +1,4 @@
+
 @import url('https://fonts.googleapis.com/css2?family=Kanit&display=swap');
 
 body {
@@ -25,6 +26,17 @@ p {
     color: #ffffff;
 }
 
+.immagine-arrotondata {
+    margin-left: 10px;
+    margin-top: 5px;
+    margin-bottom: 10px;
+    width: 100px;          
+    height: 100px;         /* Altezza */
+    border-radius: 25px;  /* Bordi arrotondati */
+    /* Altri stili opzionali */
+    object-fit: cover;   /* Gestisce il ridimensionamento */
+  }
+
 #container {
     display: flex;
     flex-direction: column;
@@ -34,19 +46,18 @@ p {
 
 }
 
-.immagine-arrotondata {
-    margin-left: 15px;
-    width: 100px;          
-    height: 100px;         /* Altezza */
-    border-radius: 25px;  /* Bordi arrotondati */
-    object-fit: cover;   /* Gestisce il ridimensionamento */
-}
 .intestazione {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
     margin-top: 50px;
+}
+
+.logo {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
 }
 
 .titolo {
@@ -376,6 +387,13 @@ footer a:hover {
     }
 
     .intestazione {
-        margin: 0px;
+        margin: 0px 100px;
     }
+
+    .immagine-arrotondata {
+        width: 60px;          
+        height: 60px;         /* Altezza */
+        border-radius: 15px;  /* Bordi arrotondati */
+
+      }
 }
