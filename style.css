@@ -34,6 +34,13 @@ p {
 
 }
 
+.immagine-arrotondata {
+    margin: 0px 15px;
+    width: 100px;          
+    height: 100px;         /* Altezza */
+    border-radius: 25px;  /* Bordi arrotondati */
+    object-fit: cover;   /* Gestisce il ridimensionamento */
+}
 .intestazione {
     display: flex;
     flex-direction: row;
