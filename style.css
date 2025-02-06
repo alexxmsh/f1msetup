@@ -1,5 +1,11 @@
 
-@import url('https://fonts.googleapis.com/css2?family=Kanit&display=swap');
+@font-face {
+    font-family: 'Kanit';
+    src: url('fonts/kanit/Kanit-Regular.ttf') format('truetype');
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+}
 
 body {
     font-family: "Kanit", serif;
