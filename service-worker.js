@@ -9,6 +9,8 @@ self.addEventListener('install', (event) => {
                 'presets.json',
                 'script.js',
                 'app.js',
+                'fonts/kanit/Kanit-Regular.tff',
+                'assets/ico512.png',
                 'assets/ico192_maskable.png',
                 'assets/ico512_maskable.png'
             ]);
