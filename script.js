@@ -405,66 +405,6 @@ document.getElementById('calculate-button_2').addEventListener('click', function
 });
 
 
-// Gestione click bottone ANNULLA
-document.getElementById('undo-button').addEventListener('click', function () {
-    if (matrice_combinazioni_history.length > 0) {
-        // Ripristina la versione precedente di matrice_combinazioni e intervals
-        matrice_combinazioni = matrice_combinazioni_history.pop();
-        intervals = intervals_history.pop();
-
-        // Decrementa il contatore delle iterazioni
-        iteration_count = Math.max(0, iteration_count - 1);
-
-        // Aggiorna la visualizzazione degli intervalli
-        updateIntervalsDisplay();
-
-        // Evidenzia la combinazione suggerita sugli slider
-        if (matrice_combinazioni.length > 0) {
-            suggestedCombination = matrice_combinazioni[0]; // Aggiorna suggestedCombination con la prima combinazione rimasta
-        } else {
-            suggestedCombination = [0, 0, 0, 0, 0]; // Resetta suggestedCombination se non ci sono combinazioni
-        }
-        highlightSuggestedCombination();
-
-        // Aggiorna il numero di combinazioni rimanenti e il messaggio
-        updateOutput(`Iteration ${iteration_count}, Iteration cancelled. Returned to previous iteration.`);
-
-        console.log("Annulla cliccato");
-    } else {
-        updateOutput("Unable to undo, no previous operation.");
-        console.log("Impossibile annullare, nessuna operazione precedente.");
-    }
-});
-document.getElementById('undo-button_2').addEventListener('click', function () {
-    if (matrice_combinazioni_history_2.length > 0) {
-        // Ripristina la versione precedente di matrice_combinazioni e intervals
-        matrice_combinazioni_2 = matrice_combinazioni_history_2.pop();
-        intervals_2 = intervals_history_2.pop();
-
-        // Decrementa il contatore delle iterazioni
-        iteration_count_2 = Math.max(0, iteration_count_2 - 1);
-
-        // Aggiorna la visualizzazione degli intervalli
-        updateIntervalsDisplay_2();
-
-        // Evidenzia la combinazione suggerita sugli slider
-        if (matrice_combinazioni_2.length > 0) {
-            suggestedCombination_2 = matrice_combinazioni_2[0]; // Aggiorna suggestedCombination con la prima combinazione rimasta
-        } else {
-            suggestedCombination_2 = [0, 0, 0, 0, 0]; // Resetta suggestedCombination se non ci sono combinazioni
-        }
-        highlightSuggestedCombination_2();
-
-        // Aggiorna il numero di combinazioni rimanenti e il messaggio
-        updateOutput_2(`Iteration ${iteration_count_2}, Iteration cancelled. Returned to previous iteration.`);
-
-        console.log("Annulla cliccato");
-    } else {
-        updateOutput_2("Unable to undo, no previous operation.");
-        console.log("Impossibile annullare, nessuna operazione precedente.");
-    }
-});
-
 
 // Gestione click bottone RICOMINCIA
 document.getElementById('reset-button').addEventListener('click', function () {
