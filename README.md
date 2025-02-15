@@ -61,7 +61,6 @@ This tool helps you find the optimal car setup in F1 Manager 2024. Here's how to
 ### Button Summary
 
 *   🧮 **Calculate:** Processes your feedback and suggests a new setup.
-*   ↩️ **Cancel:** Reverts to the previous setup suggestion.
 *   💾 **Preset:** Resets the sliders to the initial preset values for the selected track *without* clearing your feedback history.
 *   🔄 **Reset:** Completely resets everything (sliders, feedback, and calculation history) for the current driver.
 *   ⏩ **Next Track:** Resets everything and loads the preset for the next track in the list.
