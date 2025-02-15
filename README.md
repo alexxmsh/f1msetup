@@ -2,7 +2,7 @@
 
 This project is an intuitive **F1 Manager 2024** setup calculator 🧮. It helps you find the optimal car setup for each track, improving your race performance and helping you secure those podium finishes! 🏁
 
-**Try it now!** 👉 [https://alexxmsh.github.io/f1msetup/](https://alexxmsh.github.io/f1msetup/) 👈
+**Try it now!** 👉 [alexxmsh.github.io/f1msetup/](https://alexxmsh.github.io/f1msetup/) 👈
 
 ## Key Features ✨
 
