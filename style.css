@@ -294,7 +294,7 @@ p {
 
 .setup-button {
     height: 50px;
-    width: 150px;
+    width: 250px;
     padding: 10px 20px;
     font-size: 18px;
     border-radius: 5px;
@@ -325,12 +325,6 @@ p {
     color: #fefbf7;
 }
 
-#undo-button,
-#undo-button_2 {
-    background-color: #d8a927;
-    color: #fefbf7;
-}
-
 #reset-button,
 #reset-button_2 {
     background-color: #ff4665;
@@ -339,7 +333,7 @@ p {
 
 #preset-button,
 #preset-button_2 {
-    background-color: #307c82;
+    background-color: #d8a927;
     color: #fefbf7;
 }
 
