@@ -371,7 +371,7 @@ footer a:hover {
 }
 
 /* Stili per schermi larghi (orizzontali) */
-@media (min-width: 1500px) {
+@media (min-width: 1600px) {
 
     /* Scegli la larghezza che preferisci come breakpoint */
     #container {
