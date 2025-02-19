@@ -11,9 +11,10 @@
     <link rel="manifest" href="manifest.json">
     <meta name="theme-color" content="#1c1c29">
     <meta name="google-site-verification" content="acUbCySgBV6ROrqo6hRMAckYKmFGFOHjrS2-zeWjBqE" />
-    <script async src="https://cloud.umami.is/script.js" data-website-id="52153040-6efd-47e6-98ef-854774e32a4c"></script>
+    <script async src="https://cloud.umami.is/script.js"
+        data-website-id="52153040-6efd-47e6-98ef-854774e32a4c"></script>
     <meta name="description"
-        content="F1 Manager Setup Calculator. An intuitive tool to find the best car setup in F1 Manager game. Get the best slider configuration with a few simple steps. It can be installed as a webapp on your device.">
+        content="F1 Manager 2024 Setup Calculator. An intuitive tool to find the best car setup in F1 Manager game. Get the best slider configuration with a few simple steps. It can be installed as a webapp on your device.">
     <meta name="keywords"
         content="F1 Manager 2024, F1 Manager setup, best setup F1 Manager, F1M 24, car setup calculator, F1 Manager car setup, F1 Manager slider configuration, F1 Manager setup guide, F1 Manager setup calculator, F1 Manager setup tool, F1 Manager setup tips, F1 Manager setup help">
 </head>
@@ -25,9 +26,9 @@
             <h1 class="titolo">F1M 24 Setup Calculator</h1>
         </div>
         <div id="preset-area">
-            <p class="preset-text">Track preset:</p>
+            <p class="preset-text">Track preset</p>
             <select id="preset-select"></select>
-            <button id="next-button">Next Track</button>
+            <button id="next-button" data-umami-event="Next Track">Next Track</button>
         </div>
     </div>
     <div id="container">
@@ -118,10 +119,9 @@
                 <p>Info: <span id="messages"> ... </span></p>
             </div>
             <div id="control-buttons">
-                <button class="setup-button" id="calculate-button">Calculate</button>
-                
-                <button class="setup-button" id="preset-button">Preset</button>
-                <button class="setup-button" id="reset-button">Reset</button>
+                <button class="setup-button" id="calculate-button" data-umami-event="Calculate 1">Calculate</button>
+                <button class="setup-button" id="preset-button" data-umami-event="Preset 1">Preset</button>
+                <button class="setup-button" id="reset-button" data-umami-event="Reset 1">Reset</button>
             </div>
         </div>
         <div id="calculator">
@@ -211,16 +211,18 @@
                 <p>Info: <span id="messages_2"> ... </span></p>
             </div>
             <div id="control-buttons">
-                <button class="setup-button" id="calculate-button_2">Calculate</button>
-                
-                <button class="setup-button" id="preset-button_2">Preset</button>
-                <button class="setup-button" id="reset-button_2">Reset</button>
+                <button class="setup-button" id="calculate-button_2" data-umami-event="Calculate 2">Calculate</button>
+                <button class="setup-button" id="preset-button_2" data-umami-event="Preset 2">Preset</button>
+                <button class="setup-button" id="reset-button_2" data-umami-event="Reset 2">Reset</button>
             </div>
         </div>
     </div>
     <footer>
-        <p>For <span class="bold-text">DETAILED INSTRUCTIONS</span>, please visit our <a href="https://github.com/alexxmsh/f1msetup" target="_blank" data-umami-event="GitHuB page"><span class="bold-text">GitHub page</span></a>.</p>
-        <p>This is an unofficial website and is not affiliated with Formula One Licensing B.V. All F1-related trademarks are the property of their respective owners.</p>
+        <p>For <span class="bold-text">DETAILED INSTRUCTIONS</span>, please visit our <a
+                href="https://github.com/alexxmsh/f1msetup" target="_blank" data-umami-event="GitHuB page"><span
+                    class="bold-text">GitHub page</span></a>.</p>
+        <p>This is an unofficial website and is not affiliated with Formula One Licensing B.V. All F1-related trademarks
+            are the property of their respective owners.</p>
     </footer>
     <script src="script.js"></script>
 </body>
