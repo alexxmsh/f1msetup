@@ -341,7 +341,7 @@ p {
 
 #next-button {
     height: 50px;
-    width: 180px;
+    width: 170px;
     padding: 10px 20px;
     font-size: 20px;
     border-radius: 5px;
@@ -350,6 +350,13 @@ p {
     font-family: "Kanit", serif;
     font-weight: 400;
     font-style: normal;
+    background-color: #307c82;
+    transition: background 0.2s ease;
+    color: #fefbf7;
+}
+
+#next-button:hover {
+    background-color: #1d4b4e;
 }
 
 #calculate-button,
@@ -388,16 +395,6 @@ p {
     background-color: #c09622;
 }
 
-#next-button {
-    background-color: #307c82;
-    transition: background 0.2s ease;
-    width: 180px;
-    color: #fefbf7;
-}
-
-#next-button:hover {
-    background-color: #1d4b4e;
-}
 
 footer {
     text-align: center;
