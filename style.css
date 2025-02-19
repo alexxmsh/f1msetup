@@ -1,4 +1,3 @@
-
 @font-face {
     font-family: 'Kanit';
     src: url('fonts/kanit/Kanit-Regular.ttf') format('truetype');
@@ -11,7 +10,7 @@ body {
     font-family: "Kanit", serif;
     font-weight: 400;
     font-style: normal;
-    background-color: #1c1c29;
+    background-color: #12121b;
 }
 
 h1 {
@@ -36,12 +35,14 @@ p {
     margin-left: 10px;
     margin-top: 5px;
     margin-bottom: 10px;
-    width: 100px;          
-    height: 100px;         /* Altezza */
-    border-radius: 25px;  /* Bordi arrotondati */
-    /* Altri stili opzionali */
-    object-fit: cover;   /* Gestisce il ridimensionamento */
-  }
+    width: 100px;
+    height: 100px;
+    /* Altezza */
+    border-radius: 25px;
+    /* Bordi arrotondati */
+    object-fit: cover;
+    /* Gestisce il ridimensionamento */
+}
 
 #container {
     display: flex;
@@ -95,7 +96,7 @@ p {
     font-style: normal;
     font-size: 20px;
     height: 50px;
-    width: 200px;
+    width: 280px;
     margin-left: 15px;
     margin-right: 15px;
     text-align: left;
@@ -105,13 +106,12 @@ p {
 }
 
 #calculator {
-    /* Stili preesistenti per i singoli blocchi (input-area, output-area, ecc.) */
     width: 95%;
-    /* O la larghezza che preferisci */
     margin: 30px 10px;
-    border: 3px solid #bebebe;
     padding: 30px 20px;
     border-radius: 15px;
+    background-color: #1c1c29;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
 }
 
 .slider-container {
@@ -153,8 +153,8 @@ p {
 }
 
 .etichetta {
-    width: 200px;
-    margin: 10px;
+    width: 180px;
+    margin: 15 10px;
     color: #ffffff;
     font-size: 20px
 }
@@ -162,9 +162,9 @@ p {
 .etichetta2 {
     color: #ffffff;
     font-size: 25px;
-    width: 150px;
-    padding-right: 20px;
-    text-align: right;
+    width: 160px;
+    padding-left: 40px;
+    text-align: left;
 }
 
 .interval-container {
@@ -183,8 +183,7 @@ p {
 .judgment-button {
     height: 40px;
     width: 160px;
-    padding: 10px;
-    margin: 5px;
+    margin: 0 20px;
     font-size: 16px;
     border-radius: 5px;
     border: none;
@@ -198,6 +197,7 @@ p {
     font-style: normal;
     background-color: #2d2d35;
     color: rgb(255, 255, 255);
+    transition: background 0.2s ease;
 }
 
 .judgment-button.o {
@@ -206,6 +206,7 @@ p {
     font-style: normal;
     background-color: #1a3f44;
     color: #00ffff;
+    transition: background 0.2s ease;
 }
 
 .judgment-button.g {
@@ -214,6 +215,7 @@ p {
     font-style: normal;
     background-color: #2f414d;
     color: #00ffff;
+    transition: background 0.2s ease;
 }
 
 .judgment-button.d {
@@ -222,6 +224,7 @@ p {
     font-style: normal;
     background-color: #444456;
     color: rgb(255, 255, 255);
+    transition: background 0.2s ease;
 }
 
 .judgment-button.p {
@@ -230,6 +233,7 @@ p {
     font-style: normal;
     background-color: #48334b;
     color: #ff4869;
+    transition: background 0.2s ease;
 }
 
 .judgment-button.m {
@@ -238,7 +242,35 @@ p {
     font-style: normal;
     background-color: #48334b;
     color: #ff4869;
+    transition: background 0.2s ease;
 }
+
+
+.judgment-button.u:hover {
+    background-color: #222228;
+}
+
+.judgment-button.o:hover {
+    background-color: #153438;
+}
+
+.judgment-button.g:hover {
+    background-color: #273640;
+}
+
+.judgment-button.d:hover {
+    background-color: #343442;
+}
+
+.judgment-button.p:hover {
+    background-color: #352537;
+}
+
+.judgment-button.m:hover {
+    background-color: #352537;
+}
+
+
 
 .interval-background {
     width: 100%;
@@ -247,7 +279,8 @@ p {
     border-radius: 5px;
     overflow: hidden;
     position: relative;
-    margin: 10px;
+    margin: 0px;
+    transition: background 0.2s ease;
 }
 
 .interval-bar {
@@ -296,7 +329,7 @@ p {
     height: 50px;
     width: 200px;
     padding: 10px 20px;
-    font-size: 18px;
+    font-size: 20px;
     border-radius: 5px;
     margin: 10px;
     border: none;
@@ -308,9 +341,9 @@ p {
 
 #next-button {
     height: 50px;
-    width: 150px;
+    width: 180px;
     padding: 10px 20px;
-    font-size: 18px;
+    font-size: 20px;
     border-radius: 5px;
     border: none;
     cursor: pointer;
@@ -322,41 +355,73 @@ p {
 #calculate-button,
 #calculate-button_2 {
     background-color: #2ca06a;
+    transition: background 0.2s ease;
     color: #fefbf7;
+}
+
+#calculate-button:hover,
+#calculate-button_2:hover {
+    background-color: #1d6d48;
 }
 
 #reset-button,
 #reset-button_2 {
     background-color: #ff4665;
+    transition: background 0.2s ease;
     color: #fefbf7;
+}
+
+#reset-button:hover,
+#reset-button_2:hover {
+    background-color: #cc3850;
 }
 
 #preset-button,
 #preset-button_2 {
     background-color: #d8a927;
+    transition: background 0.2s ease;
     color: #fefbf7;
+}
+
+#preset-button:hover,
+#preset-button_2:hover {
+    background-color: #c09622;
 }
 
 #next-button {
     background-color: #307c82;
+    transition: background 0.2s ease;
+    width: 180px;
     color: #fefbf7;
 }
 
+#next-button:hover {
+    background-color: #1d4b4e;
+}
+
 footer {
-    text-align: center; /* Centra il testo */
-    margin-top: 50px;  /* Aggiunge spazio sopra il footer */
-    padding: 20px;     /* Aggiunge spazio interno al footer */
-    border-top: 1px solid #444456; /* Linea divisoria superiore (opzionale) */
+    text-align: center;
+    /* Centra il testo */
+    margin-top: 50px;
+    /* Aggiunge spazio sopra il footer */
+    padding: 20px;
+    /* Aggiunge spazio interno al footer */
+    border-top: 1px solid #444456;
+    /* Linea divisoria superiore (opzionale) */
 }
 
 footer p {
-    color: #bebebe;       /* Colore del testo */
-    font-size: 14px;    /* Dimensione del testo (regolabile) */
-    margin: 5px 0;     /* Spaziatura tra le righe */
+    color: #bebebe;
+    /* Colore del testo */
+    font-size: 14px;
+    /* Dimensione del testo (regolabile) */
+    margin: 5px 0;
+    /* Spaziatura tra le righe */
 }
 
 .bold-text {
-    font-weight: bold; /* Grassetto SOLO per gli span con questa classe */
+    font-weight: bold;
+    /* Grassetto SOLO per gli span con questa classe */
 }
 
 footer a {
@@ -371,7 +436,7 @@ footer a:hover {
 }
 
 /* Stili per schermi larghi (orizzontali) */
-@media (min-width: 1600px) {
+@media (min-width: 1500px) {
 
     /* Scegli la larghezza che preferisci come breakpoint */
     #container {
@@ -381,7 +446,6 @@ footer a:hover {
 
     #calculator {
         margin: 0 30px;
-        border: 3px solid #bebebe;
         padding: 0px 20px;
         border-radius: 15px;
     }
@@ -391,9 +455,11 @@ footer a:hover {
     }
 
     .immagine-arrotondata {
-        width: 60px;          
-        height: 60px;         /* Altezza */
-        border-radius: 15px;  /* Bordi arrotondati */
+        width: 60px;
+        height: 60px;
+        /* Altezza */
+        border-radius: 15px;
+        /* Bordi arrotondati */
 
-      }
+    }
 }
