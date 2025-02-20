@@ -36,10 +36,6 @@ let matrice_combinazioni = genera_combinazioni();
 let matrice_combinazioni_2 = genera_combinazioni();
 let iteration_count = 0;
 let iteration_count_2 = 0;
-let matrice_combinazioni_history = [];
-let matrice_combinazioni_history_2 = [];
-let intervals_history = [];
-let intervals_history_2 = [];
 let suggestedCombination = [0, 0, 0, 0, 0];
 let suggestedCombination_2 = [0, 0, 0, 0, 0];
 let current_A, current_B, current_C, current_D, current_E;
@@ -230,13 +226,8 @@ document.getElementById('calculate-button').addEventListener('click', function (
             updateOutput("Error! Invalid intersection. Try again.");
             return; // Interrompe l'esecuzione della funzione
         }
-        // Altrimenti, aggiorna gli intervalli
-        previousIntervals = intervals.map(intervallo => [...intervallo]); // Memorizza gli intervalli precedenti
-        intervals = [new_intervals_a, new_intervals_b, new_intervals_c, new_intervals_d, new_intervals_e];
 
-        // Salva la versione corrente di matrice_combinazioni e intervals nella cronologia
-        matrice_combinazioni_history.push(matrice_combinazioni.map(riga => [...riga])); // Crea una copia profonda
-        intervals_history.push(intervals.map(intervallo => [...intervallo])); // Crea una copia profonda
+        intervals = [new_intervals_a, new_intervals_b, new_intervals_c, new_intervals_d, new_intervals_e];
 
         // Aggiorna la matrice delle combinazioni
         if (isAnyJudgmentNotOptimalOrUnknown) {
@@ -335,13 +326,8 @@ document.getElementById('calculate-button_2').addEventListener('click', function
             updateOutput("Errore!", "Intersezione non valida. Riprova.");
             return; // Interrompe l'esecuzione della funzione
         }
-        // Altrimenti, aggiorna gli intervalli
-        previousIntervals_2 = intervals_2.map(intervallo => [...intervallo]); // Memorizza gli intervalli precedenti
-        intervals_2 = [new_intervals_a_2, new_intervals_b_2, new_intervals_c_2, new_intervals_d_2, new_intervals_e_2];
 
-        // Salva la versione corrente di matrice_combinazioni e intervals nella cronologia
-        matrice_combinazioni_history_2.push(matrice_combinazioni_2.map(riga => [...riga])); // Crea una copia profonda
-        intervals_history_2.push(intervals_2.map(intervallo => [...intervallo])); // Crea una copia profonda
+        intervals_2 = [new_intervals_a_2, new_intervals_b_2, new_intervals_c_2, new_intervals_d_2, new_intervals_e_2];
 
         // Aggiorna la matrice delle combinazioni
         if (isAnyJudgmentNotOptimalOrUnknown) {
@@ -428,10 +414,6 @@ document.getElementById('reset-button').addEventListener('click', function () {
     // Resetta gli intervalli
     resetIntervals();
 
-    // Resetta la cronologia
-    matrice_combinazioni_history = [];
-    intervals_history = [];
-
     // Resetta il contatore delle iterazioni
     iteration_count = 0;
 
@@ -473,10 +455,6 @@ document.getElementById('reset-button_2').addEventListener('click', function () 
 
     // Resetta gli intervalli
     resetIntervals_2();
-
-    // Resetta la cronologia
-    matrice_combinazioni_history_2 = [];
-    intervals_history_2 = [];
 
     // Resetta il contatore delle iterazioni
     iteration_count_2 = 0;
@@ -846,10 +824,6 @@ document.getElementById('next-button').addEventListener('click', function() {
     });
     resetIntervals();
     resetIntervals_2();
-    matrice_combinazioni_history = [];
-    matrice_combinazioni_history_2 = [];
-    intervals_history = [];
-    intervals_history_2 = [];
     iteration_count = 0;
     iteration_count_2 = 0;
     matrice_combinazioni = genera_combinazioni();
