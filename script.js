@@ -83,14 +83,48 @@ function calcola_intersezione_intervalli(intervallo_corrente, nuovo_intervallo) 
 }
 
 // Funzione per aggiornare gli intervalli in base ai giudizi
-function aggiorna_intervalli(valore_calcolato, giudizio, intervallo_corrente, tuning_o = 0.006964, tuning_g = 0.040001, tuning_d = 0.100001, tuning_plus = 0.1, tuning_minus = 0.1) {
+function aggiorna_intervalli(valore_calcolato, giudizio, intervallo_corrente, tuning_o = 0.006964, tuning_g = 0.04, tuning_d = 0.1, tuning_plus = 0.1, tuning_minus = 0.1) {
     let nuovo_intervallo;
     if (giudizio === "o") {
         nuovo_intervallo = [valore_calcolato - tuning_o, valore_calcolato + tuning_o];
     } else if (giudizio === "g") {
+
         nuovo_intervallo = [valore_calcolato - tuning_g, valore_calcolato + tuning_g];
+
+        // Intersezione con l'intervallo corrente
+        let intersezione = calcola_intersezione_intervalli(intervallo_corrente, nuovo_intervallo);
+        let [inter_min, inter_max] = intersezione;
+
+        let exclusion_min = valore_calcolato - tuning_o;
+        let exclusion_max = valore_calcolato + tuning_o;
+
+        if (inter_min >= exclusion_min && inter_min <= exclusion_max) {
+            // Il minimo è dentro la zona da escludere -> Sposta il minimo
+            nuovo_intervallo = [exclusion_max, valore_calcolato + tuning_g];
+        } else if (inter_max >= exclusion_min && inter_max <= exclusion_max) {
+            // Il massimo è dentro la zona da escludere -> Sposta il massimo
+            nuovo_intervallo = [valore_calcolato - tuning_g, exclusion_min];
+        }
+
     } else if (giudizio === "d") {
+
         nuovo_intervallo = [valore_calcolato - tuning_d, valore_calcolato + tuning_d];
+
+        // Intersezione con l'intervallo corrente
+        let intersezione = calcola_intersezione_intervalli(intervallo_corrente, nuovo_intervallo);
+        let [inter_min, inter_max] = intersezione;
+
+        let exclusion_min = valore_calcolato - tuning_g;
+        let exclusion_max = valore_calcolato + tuning_g;
+
+        if (inter_min >= exclusion_min && inter_min <= exclusion_max) {
+            // Il minimo è dentro la zona da escludere -> Sposta il minimo
+            nuovo_intervallo = [exclusion_max, valore_calcolato + tuning_d];
+        } else if (inter_max >= exclusion_min && inter_max <= exclusion_max) {
+            // Il massimo è dentro la zona da escludere -> Sposta il massimo
+            nuovo_intervallo = [valore_calcolato - tuning_d, exclusion_min];
+        }
+
     } else if (giudizio === "p") {
         nuovo_intervallo = [valore_calcolato + tuning_plus, 1];
     } else if (giudizio === "m") {
