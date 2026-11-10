@@ -1,5 +1,5 @@
 /**
- * F1 Manager 2024 Setup Calculator v2
+ * F1 Manager 2024 Setup Calculator
  * Algoritmo avanzato a segmenti disgiunti (IntervalSet) con pesi ottimizzati via Grid Search:
  * - Esclusione rigorosa del campo Great per feedback Good
  * - Esclusione rigorosa del campo Optimal per feedback Great
@@ -36,8 +36,8 @@ class IntervalSet {
     clean(raw) {
         const valid = [];
         for (const [start, end] of raw) {
-            const s = Math.max(0, Math.min(1, start));
-            const e = Math.max(0, Math.min(1, end));
+            const s = Math.max(0, start);
+            const e = Math.min(1, end);
             if (s <= e) {
                 valid.push([s, e]);
             }
@@ -502,7 +502,7 @@ class DriverSession {
     }
 
     /**
-     * Selezione del setup ottimale (Minimax a 2 stinti v2-prerel05):
+     * Selezione del setup ottimale (Minimax a 2 stinti):
      * 1. Shortlist preliminare dei candidati C1 (centroide + centratura segmenti),
      *    piu' alcuni candidati distribuiti per diversita'.
      * 2. Per ogni C1 si simulano TUTTI i possibili feedback (partizione dei target
@@ -693,32 +693,16 @@ class DriverSession {
             const constraint = IntervalSet.fromFeedback(testVals[k], fb);
             const updated = this.currentIntervals[k].intersect(constraint);
             if (updated.isEmpty()) {
-                this.setMessage("Error! Inconsistent feedback: no solution exists in this range. Use Undo to revert.");
+                this.setMessage("Error! Inconsistent feedback: no solution exists in this range. Check your feedback and try again.");
                 return;
             }
             candidateIntervals.push(updated);
         }
 
-        // 2. Salva lo snapshot per Undo prima di modificare lo stato
-        const snapshot = {
-            validIndices: this.validIndices.slice(0, this.validCount),
-            validCount: this.validCount,
-            previousIntervals: this.previousIntervals ? this.previousIntervals.map(i => i.clone()) : null,
-            currentIntervals: this.currentIntervals.map(i => i.clone()),
-            sliderValues: { A: curA, B: curB, C: curC, D: curD, E: curE },
-            suggestedIdx: this.suggestedIdx,
-            iterationCount: this.iterationCount,
-            message: this.messagesSpan ? this.messagesSpan.textContent : ""
-        };
-        this.history.push(snapshot);
-        if (this.undoBtn) {
-            this.undoBtn.disabled = false;
-        }
-
         // Esclusione combinazione esatta appena provata se non ottimale
         const excludeCurrentExact = feedbacks.some(f => f !== 'o' && f !== 'u');
 
-        // 3. Filtra la griglia dei candidati
+        // 2. Filtra la griglia dei candidati
         const nextIndices = new Int32Array(this.validCount);
         let nextCount = 0;
 
@@ -750,8 +734,24 @@ class DriverSession {
         }
 
         if (nextCount === 0) {
-            this.setMessage("Error! No combination found that matches all criteria. Click 'Undo' to revert.");
+            this.setMessage("Error! No combination found that matches all criteria. Check your feedback and try again.");
             return;
+        }
+
+        // 3. Salva lo snapshot per Undo dopo aver trovato un risultato
+        const snapshot = {
+            validIndices: this.validIndices.slice(0, this.validCount),
+            validCount: this.validCount,
+            previousIntervals: this.previousIntervals ? this.previousIntervals.map(i => i.clone()) : null,
+            currentIntervals: this.currentIntervals.map(i => i.clone()),
+            sliderValues: { A: curA, B: curB, C: curC, D: curD, E: curE },
+            suggestedIdx: this.suggestedIdx,
+            iterationCount: this.iterationCount,
+            message: this.messagesSpan ? this.messagesSpan.textContent : ""
+        };
+        this.history.push(snapshot);
+        if (this.undoBtn) {
+            this.undoBtn.disabled = false;
         }
 
         // 4. Aggiorna lo stato
@@ -883,28 +883,6 @@ function applyPresetsList(presets) {
     }
 }
 
-function loadPresets() {
-    if (typeof DEFAULT_PRESETS !== 'undefined' && Array.isArray(DEFAULT_PRESETS) && DEFAULT_PRESETS.length > 0) {
-        applyPresetsList(DEFAULT_PRESETS);
-        return;
-    }
-
-    fetch('presets.json')
-        .then(res => res.json())
-        .then(presets => {
-            applyPresetsList(presets);
-        })
-        .catch(err => {
-            console.warn("fetch('presets.json') non riuscito:", err);
-            if (typeof DEFAULT_PRESETS !== 'undefined' && Array.isArray(DEFAULT_PRESETS)) {
-                applyPresetsList(DEFAULT_PRESETS);
-            } else {
-                driver1.setMessage("Could not load presets.");
-                driver2.setMessage("Could not load presets.");
-            }
-        });
-}
-
 const presetSelect = document.getElementById('preset-select');
 if (presetSelect) {
     presetSelect.addEventListener('change', function () {
@@ -930,9 +908,9 @@ if (nextButton) {
     });
 }
 
-loadPresets();
+applyPresetsList(DEFAULT_PRESETS);
 
-if ('serviceWorker' in navigator) {
+if ('serviceWorker' in navigator && location.protocol !== 'file:') {
     window.addEventListener('load', () => {
         navigator.serviceWorker.register('./service-worker.js')
             .then(reg => console.log('Service Worker registrato:', reg.scope))
