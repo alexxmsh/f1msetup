@@ -7,10 +7,12 @@
 }
 
 body {
-    font-family: "Kanit", serif;
+    font-family: "Kanit", sans-serif;
     font-weight: 400;
     font-style: normal;
     background-color: #12121b;
+    margin: 0;
+    padding: 0;
 }
 
 h1 {
@@ -24,7 +26,7 @@ h2 {
     font-size: 20px;
     color: #ffffff;
     text-align: center;
-    margin: 20px 5px 0px 0px;
+    margin: 20px 5px 10px 0px;
 }
 
 p {
@@ -35,22 +37,19 @@ p {
     margin-left: 10px;
     margin-top: 5px;
     margin-bottom: 10px;
-    width: 100px;
-    height: 100px;
-    /* Altezza */
-    border-radius: 25px;
-    /* Bordi arrotondati */
+    width: 80px;
+    height: 80px;
+    border-radius: 20px;
     object-fit: cover;
-    /* Gestisce il ridimensionamento */
 }
 
 #container {
     display: flex;
     flex-direction: column;
-    align-items: center;
+    align-items: stretch;
     justify-content: center;
     margin: 0px 15px;
-
+    gap: 20px;
 }
 
 .intestazione {
@@ -58,7 +57,9 @@ p {
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
-    margin-top: 50px;
+    margin: 20px 20px 10px 20px;
+    flex-wrap: wrap;
+    gap: 15px;
 }
 
 .logo {
@@ -69,49 +70,51 @@ p {
 
 .titolo {
     color: #ffffff;
-    font-size: 40px;
+    font-size: 34px;
     margin: 10px;
     text-align: left;
-    margin-left: 20px;
+    margin-left: 15px;
 }
 
 #preset-area {
     margin-bottom: 10px;
-    margin-left: 20px;
-    margin-right: 20px;
     display: flex;
     align-items: center;
-    justify-content: left;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+    gap: 10px;
 }
 
 .preset-text {
     color: #ffffff;
-    font-size: 20px;
-    text-align: right;
+    font-size: 18px;
+    margin: 0;
 }
 
 #preset-select {
-    font-family: "Kanit", serif;
+    font-family: "Kanit", sans-serif;
     font-weight: 400;
     font-style: normal;
-    font-size: 20px;
-    height: 50px;
-    width: 280px;
-    margin-left: 15px;
-    margin-right: 15px;
+    font-size: 18px;
+    height: 44px;
+    width: 260px;
     text-align: left;
     border-radius: 10px;
     background-color: #444456;
     color: #ffffff;
+    padding: 0 10px;
+    border: 1px solid #5a5a70;
 }
 
+.calculator-card,
 #calculator {
-    width: 95%;
-    margin: 30px 10px;
-    padding: 30px 20px;
+    flex: 1 1 0;
+    margin: 10px 0;
+    padding: 25px 20px;
     border-radius: 15px;
     background-color: #1c1c29;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+    min-width: 320px;
 }
 
 .slider-container {
@@ -123,11 +126,10 @@ p {
 
 .slider {
     -webkit-appearance: none;
-    /* Rimuove lo stile predefinito */
     appearance: none;
     width: 100%;
     height: 8px;
-    background: #ddd;
+    background: #444456;
     border-radius: 4px;
     outline: none;
 }
@@ -136,115 +138,108 @@ p {
 .slider::-webkit-slider-thumb {
     -webkit-appearance: none;
     appearance: none;
-    width: 20px;
-    height: 20px;
+    width: 22px;
+    height: 22px;
     background: #04ffff;
     border-radius: 50%;
     cursor: pointer;
+    box-shadow: 0 0 6px rgba(4, 255, 255, 0.6);
 }
 
 /* Stile del cursore per Firefox */
 .slider::-moz-range-thumb {
-    width: 20px;
-    height: 20px;
+    width: 22px;
+    height: 22px;
     background: #04ffff;
     border-radius: 50%;
     cursor: pointer;
+    border: none;
+    box-shadow: 0 0 6px rgba(4, 255, 255, 0.6);
 }
 
 .etichetta {
-    width: 180px;
-    margin: 15px 10px;
+    width: 140px;
+    min-width: 120px;
+    margin: 10px 10px;
     color: #ffffff;
-    font-size: 20px;
+    font-size: 18px;
 }
 
 .etichetta2 {
     color: #ffffff;
-    font-size: 25px;
-    width: 160px;
-    padding-left: 40px;
+    font-size: 22px;
+    width: 120px;
+    min-width: 90px;
+    padding-left: 20px;
     text-align: left;
+    font-variant-numeric: tabular-nums;
 }
 
 .interval-container {
     display: flex;
     align-items: center;
-
+    margin-bottom: 8px;
 }
 
+.control-buttons,
 #control-buttons {
-    display: flex;
     display: flex;
     align-items: center;
     justify-content: center;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 15px;
 }
 
 .judgment-button {
-    height: 40px;
-    width: 160px;
-    margin: 0 20px;
-    font-size: 16px;
-    border-radius: 5px;
+    height: 38px;
+    width: 140px;
+    min-width: 110px;
+    margin-left: 15px;
+    font-size: 15px;
+    border-radius: 6px;
     border: none;
     cursor: pointer;
+    user-select: none;
 }
 
 /* Stili per i bottoni dei giudizi in base al loro stato */
 .judgment-button.u {
-    font-family: "Kanit", serif;
-    font-weight: 400;
-    font-style: normal;
+    font-family: "Kanit", sans-serif;
     background-color: #2d2d35;
     color: rgb(255, 255, 255);
     transition: background 0.2s ease;
 }
 
 .judgment-button.o {
-    font-family: "Kanit", serif;
-    font-weight: 400;
-    font-style: normal;
+    font-family: "Kanit", sans-serif;
     background-color: #1a3f44;
     color: #00ffff;
+    border: 1px solid #00ffff;
     transition: background 0.2s ease;
 }
 
 .judgment-button.g {
-    font-family: "Kanit", serif;
-    font-weight: 400;
-    font-style: normal;
+    font-family: "Kanit", sans-serif;
     background-color: #2f414d;
     color: #00ffff;
     transition: background 0.2s ease;
 }
 
 .judgment-button.d {
-    font-family: "Kanit", serif;
-    font-weight: 400;
-    font-style: normal;
+    font-family: "Kanit", sans-serif;
     background-color: #444456;
     color: rgb(255, 255, 255);
     transition: background 0.2s ease;
 }
 
-.judgment-button.p {
-    font-family: "Kanit", serif;
-    font-weight: 400;
-    font-style: normal;
-    background-color: #48334b;
-    color: #ff4869;
-    transition: background 0.2s ease;
-}
-
+.judgment-button.p,
 .judgment-button.m {
-    font-family: "Kanit", serif;
-    font-weight: 400;
-    font-style: normal;
+    font-family: "Kanit", sans-serif;
     background-color: #48334b;
     color: #ff4869;
     transition: background 0.2s ease;
 }
-
 
 .judgment-button.u:hover {
     background-color: #222228;
@@ -262,20 +257,15 @@ p {
     background-color: #343442;
 }
 
-.judgment-button.p:hover {
-    background-color: #352537;
-}
-
+.judgment-button.p:hover,
 .judgment-button.m:hover {
     background-color: #352537;
 }
 
-
-
 .interval-background {
-    width: 100%;
-    height: 40px;
-    background-color: #434852;
+    flex: 1;
+    height: 38px;
+    background-color: #353842;
     border-radius: 5px;
     overflow: hidden;
     position: relative;
@@ -284,29 +274,55 @@ p {
 }
 
 .interval-bar {
-    height: 100%;
-    background-color: #307c82;
     position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
     z-index: 1;
+    pointer-events: none;
 }
 
 .interval-bar-previous {
-    height: 100%;
-    background-color: #ff4665;
     position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
     z-index: 0;
+    pointer-events: none;
+}
+
+.interval-segment {
+    position: absolute;
+    top: 0;
+    height: 100%;
+    background-color: #307c82;
+    border-radius: 3px;
+    box-shadow: inset 0 0 5px rgba(4, 255, 255, 0.3);
+    transition: left 0.15s ease, width 0.15s ease;
+}
+
+.interval-segment-previous {
+    position: absolute;
+    top: 0;
+    height: 100%;
+    background-color: rgba(255, 70, 101, 0.45);
+    border-radius: 3px;
+    transition: left 0.15s ease, width 0.15s ease;
 }
 
 .suggested-marker {
     position: absolute;
     top: 0;
     left: 0;
-    /* Verrà modificato da JavaScript */
     width: 3px;
     height: 100%;
     background-color: #00fef6;
     z-index: 2;
-    /* Assicura che il marker sia sopra gli altri rettangoli */
+    transform: translateX(-50%);
+    box-shadow: 0 0 4px #00fef6;
+    transition: left 0.15s ease;
 }
 
 .current-marker {
@@ -317,39 +333,56 @@ p {
     height: 100%;
     background-color: #fefbf7;
     z-index: 3;
-    /* Assicura che il marker sia sopra tutti gli altri elementi */
+    transform: translateX(-50%);
+    box-shadow: 0 0 4px #ffffff;
+    transition: left 0.15s ease;
 }
 
-#control-buttons {
-    display: flex;
-    justify-content: space-around;
+.output-area,
+#output-area {
+    margin-top: 15px;
+    padding: 8px 12px;
+    background-color: #242434;
+    border-radius: 6px;
+    font-size: 16px;
+}
+
+.output-area p {
+    margin: 0;
 }
 
 .setup-button {
-    height: 50px;
-    width: 200px;
-    padding: 10px 20px;
-    font-size: 20px;
-    border-radius: 5px;
-    margin: 10px;
+    height: 44px;
+    flex: 1 1 120px;
+    max-width: 170px;
+    min-width: 100px;
+    padding: 8px 14px;
+    font-size: 17px;
+    border-radius: 6px;
+    margin: 4px;
     border: none;
     cursor: pointer;
-    font-family: "Kanit", serif;
+    font-family: "Kanit", sans-serif;
     font-weight: 400;
     font-style: normal;
+    transition: background 0.2s ease, opacity 0.2s ease;
+}
+
+.setup-button:disabled {
+    opacity: 0.35;
+    cursor: not-allowed;
+    filter: grayscale(40%);
 }
 
 #next-button {
-    height: 50px;
-    width: 170px;
-    padding: 10px 20px;
-    font-size: 20px;
-    border-radius: 5px;
+    height: 44px;
+    width: 140px;
+    padding: 8px 14px;
+    font-size: 17px;
+    border-radius: 8px;
     border: none;
     cursor: pointer;
-    font-family: "Kanit", serif;
-    font-weight: 400;
-    font-style: normal;
+    font-family: "Kanit", sans-serif;
     background-color: #307c82;
     transition: background 0.2s ease;
     color: #fefbf7;
@@ -359,66 +392,73 @@ p {
     background-color: #1d4b4e;
 }
 
+.calc-btn,
 #calculate-button,
 #calculate-button_2 {
     background-color: #2ca06a;
-    transition: background 0.2s ease;
     color: #fefbf7;
 }
 
-#calculate-button:hover,
-#calculate-button_2:hover {
+.calc-btn:hover:not(:disabled),
+#calculate-button:hover:not(:disabled),
+#calculate-button_2:hover:not(:disabled) {
     background-color: #1d6d48;
 }
 
+.reset-btn,
 #reset-button,
 #reset-button_2 {
     background-color: #ff4665;
-    transition: background 0.2s ease;
     color: #fefbf7;
 }
 
-#reset-button:hover,
-#reset-button_2:hover {
+.reset-btn:hover:not(:disabled),
+#reset-button:hover:not(:disabled),
+#reset-button_2:hover:not(:disabled) {
     background-color: #cc3850;
 }
 
+.preset-btn,
 #preset-button,
 #preset-button_2 {
     background-color: #d8a927;
-    transition: background 0.2s ease;
     color: #fefbf7;
 }
 
-#preset-button:hover,
-#preset-button_2:hover {
+.preset-btn:hover:not(:disabled),
+#preset-button:hover:not(:disabled),
+#preset-button_2:hover:not(:disabled) {
     background-color: #c09622;
 }
 
+.undo-btn,
+#undo-button,
+#undo-button_2 {
+    background-color: #6c5ce7;
+    color: #fefbf7;
+}
+
+.undo-btn:hover:not(:disabled),
+#undo-button:hover:not(:disabled),
+#undo-button_2:hover:not(:disabled) {
+    background-color: #5847d0;
+}
 
 footer {
     text-align: center;
-    /* Centra il testo */
-    margin-top: 50px;
-    /* Aggiunge spazio sopra il footer */
+    margin-top: 40px;
     padding: 20px;
-    /* Aggiunge spazio interno al footer */
     border-top: 1px solid #444456;
-    /* Linea divisoria superiore (opzionale) */
 }
 
 footer p {
     color: #bebebe;
-    /* Colore del testo */
     font-size: 14px;
-    /* Dimensione del testo (regolabile) */
     margin: 5px 0;
-    /* Spaziatura tra le righe */
 }
 
 .bold-text {
     font-weight: bold;
-    /* Grassetto SOLO per gli span con questa classe */
 }
 
 footer a {
@@ -429,34 +469,26 @@ footer a {
 
 footer a:hover {
     color: #00ffff;
-    text-decoration: none;
+    text-decoration: underline;
 }
 
-/* Stili per schermi larghi (orizzontali) */
-@media (min-width: 1500px) {
-
-    /* Scegli la larghezza che preferisci come breakpoint */
+/* Stili per schermi desktop / laptop (orizzontali affiancati a 2 colonne) */
+@media (min-width: 1100px) {
     #container {
         flex-direction: row;
-        /* Imposta la direzione a riga (orizzontale) */
+        align-items: flex-start;
     }
 
-    #calculator {
-        margin: 0 30px;
-        padding: 0px 20px;
-        border-radius: 15px;
+    .calculator-card {
+        margin: 10px 15px;
     }
 
     .intestazione {
-        margin: 0px 100px;
+        margin: 20px 40px 10px 40px;
     }
 
     .immagine-arrotondata {
-        width: 60px;
-        height: 60px;
-        /* Altezza */
-        border-radius: 15px;
-        /* Bordi arrotondati */
-
+        width: 70px;
+        height: 70px;
     }
 }
