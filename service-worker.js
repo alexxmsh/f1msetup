@@ -1,73 +1,62 @@
-// Nome della cache
-const CACHE_NAME = 'f1msetup-cache-v2-prerel04';
+const CACHE_PREFIX = `f1msetup-cache:${self.registration.scope}:`;
+const CACHE_NAME = `${CACHE_PREFIX}2026-11-10`;
 
-// Elenco delle risorse da memorizzare nella cache
-const urlsToCache = [
+const APP_FILES = [
     './',
     './index.html',
     './style.css',
     './presets.js',
     './script.js',
     './manifest.json',
-    './assets/ico512.png',
-    './assets/ico192_maskable.png',
-    './assets/ico512_maskable.png',
-    './assets/ico180.png',
-    './assets/ico32.png',
+    './favicon.ico',
+    './assets/apple-touch-icon.png',
     './assets/ico16.png',
+    './assets/ico32.png',
+    './assets/ico48.png',
+    './assets/ico96.png',
+    './assets/ico180.png',
+    './assets/ico192_maskable.png',
+    './assets/ico512.png',
+    './assets/ico512_maskable.png',
+    './assets/screenshot_land.png',
+    './assets/screenshot_port.png',
     './fonts/kanit/Kanit-Regular.ttf'
 ];
 
-// Installazione del Service Worker
-self.addEventListener('install', function(event) {
-    event.waitUntil(
-        caches.open(CACHE_NAME)
-          .then(function(cache) {
-                console.log('Cache aperta:', CACHE_NAME);
-                return cache.addAll(urlsToCache);
-            })
-    );
+self.addEventListener('install', event => {
+    event.waitUntil(caches.open(CACHE_NAME).then(cache => cache.addAll(APP_FILES)));
 });
 
-// Attivazione del Service Worker
-self.addEventListener('activate', function(event) {
-    event.waitUntil(
-        caches.keys().then(function(cacheNames) {
-            return Promise.all(
-                cacheNames.map(function(cacheName) {
-                    if (cacheName !== CACHE_NAME) {
-                        console.log('Cache obsoleta rimossa:', cacheName);
-                        return caches.delete(cacheName);
-                    }
-                })
-            );
-        })
-    );
+self.addEventListener('activate', event => {
+    event.waitUntil(caches.keys().then(names => Promise.all(
+        names.filter(name => name.startsWith(CACHE_PREFIX) && name !== CACHE_NAME)
+            .map(name => caches.delete(name))
+    )).then(() => self.clients.claim()));
 });
 
-// Gestione delle richieste di recupero
-self.addEventListener('fetch', function(event) {
-    event.respondWith(
-        fetch(event.request)
-          .then(function(networkResponse) {
-                if (networkResponse && networkResponse.status === 200) {
-                    const responseClone = networkResponse.clone();
-                    caches.open(CACHE_NAME)
-                      .then(function(cache) {
-                            cache.put(event.request, responseClone);
-                        });
-                }
-                return networkResponse;
-            })
-          .catch(function() {
-                return caches.match(event.request)
-                  .then(function(cachedResponse) {
-                        if (cachedResponse) {
-                            return cachedResponse;
-                        } else {
-                            return new Response('Risorsa non disponibile offline', { status: 503 });
-                        }
-                    });
-            })
-    );
+self.addEventListener('fetch', event => {
+    const { request } = event;
+    if (request.method !== 'GET' || !request.url.startsWith(self.registration.scope)) {
+        return;
+    }
+
+    event.respondWith((async () => {
+        const cache = await caches.open(CACHE_NAME);
+        let response;
+        try {
+            response = await fetch(request);
+        } catch {
+            const cached = await cache.match(request, { ignoreSearch: request.mode === 'navigate' });
+            return cached || new Response('Risorsa non disponibile offline', { status: 503 });
+        }
+
+        if (response.ok && response.type === 'basic' && response.status !== 206) {
+            try {
+                await cache.put(request, response.clone());
+            } catch (error) {
+                console.warn('Risorsa non salvata nella cache:', error);
+            }
+        }
+        return response;
+    })());
 });
