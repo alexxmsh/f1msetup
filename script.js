@@ -1,11 +1,12 @@
 /**
  * F1 Manager 2024 Setup Calculator
- * Algoritmo avanzato a segmenti disgiunti (IntervalSet) con pesi ottimizzati via Grid Search:
+ * Algoritmo avanzato a segmenti disgiunti (IntervalSet), prerel09:
  * - Esclusione rigorosa del campo Great per feedback Good
  * - Esclusione rigorosa del campo Optimal per feedback Great
  * - Rendering dinamico a segmenti multipli e zone escluse
  * - Selezione basata su centri di segmento e ottimizzazione box
- * - Selezione del prossimo setup con lookahead a 2 stinti (minimax ottimizzato)
+ * - Selezione del prossimo setup con criterio d'informazione della prerel04,
+ *   shortlist diversificata e potatura anticipata senza perdere candidati migliori
  * - Supporto completo Undo e compatibilita' locale/web
  */
 
@@ -206,6 +207,7 @@ function feedbackKey(testId, targetId) {
 const FB_KEYS = 3125;
 const FB_COUNTS = new Uint16Array(FB_KEYS);
 const FB_TOUCHED = [];
+const OPENING_CACHE_10A = new Map();
 
 /**
  * Dato l'insieme di target ancora possibili dopo il primo feedback ("members"),
@@ -285,6 +287,7 @@ class DriverSession {
         this.suffix = suffix; // "" per Driver 1, "_2" per Driver 2
         this.name = name;
         this.iterationCount = 0;
+        this.sawBadFeedback = false;
 
         // Riferimenti DOM
         this.sliders = {
@@ -502,16 +505,72 @@ class DriverSession {
     }
 
     /**
-     * Selezione del setup ottimale (Minimax a 2 stinti):
-     * 1. Shortlist preliminare dei candidati C1 (centroide + centratura segmenti),
-     *    piu' alcuni candidati distribuiti per diversita'.
-     * 2. Per ogni C1 si simulano TUTTI i possibili feedback (partizione dei target
-     *    campionati). Per ogni feedback si cerca il miglior C2 (quello che minimizza
-     *    il bucket piu' grande al secondo stint). Il punteggio di C1 e' il caso
-     *    peggiore a 2 stinti: max sui feedback di min sui C2 del bucket residuo.
-     *    Spareggi: dimensione attesa a 2 stinti, caso peggiore a 1 stinto, cambio setup.
+     * Selezione prerel09, basata sul criterio che ha reso efficace la prerel04.
+     * La prima fase sceglie candidati informativi e centrati negli intervalli;
+     * la seconda stima la dimensione residua media e il caso peggiore.
+     * Aggiunge candidati diversificati e usa un limite inferiore del punteggio
+     * per saltare valutazioni che non possono battere il candidato migliore.
      */
     selectOptimalSetup(currentA, currentB, currentC, currentD, currentE) {
+        if (this.sawBadFeedback) {
+            const exploratoryId = this.selectExploratorySetup11B(currentA, currentB, currentC, currentD, currentE);
+            const currentId = (((currentA * 15 + currentB) * 9 + currentC) * 17 + currentD) * 21 + currentE;
+            if (exploratoryId !== currentId) return exploratoryId;
+            return this.selectOptimalSetup09(currentA, currentB, currentC, currentD, currentE);
+        }
+        if (this.iterationCount === 1) {
+            return this.selectOpeningSetup10A(currentA, currentB, currentC, currentD, currentE);
+        }
+        return this.selectOptimalSetup09(currentA, currentB, currentC, currentD, currentE);
+    }
+
+    // Esplora esattamente la partizione della popolazione residua al primo
+    // feedback. Il risultato è memorizzato per preset + vettore feedback.
+    selectOpeningSetup10A(currentA, currentB, currentC, currentD, currentE) {
+        if (this.validCount <= 1) return this.validIndices[0] || 0;
+        const feedbackKeyNow = this.getFeedbackState().join('');
+        const cacheKey = `${currentA},${currentB},${currentC},${currentD},${currentE}|${feedbackKeyNow}`;
+        if (OPENING_CACHE_10A.has(cacheKey)) return OPENING_CACHE_10A.get(cacheKey);
+
+        const bucketCounts = new Uint16Array(FB_KEYS);
+        const touched = [];
+        const n = this.validCount;
+        let bestId = this.validIndices[0];
+        let bestExpected = Infinity;
+        let bestWorst = Infinity;
+
+        for (let c = 0; c < n; c++) {
+            const candidateId = this.validIndices[c];
+            let sumSquared = 0;
+            let worst = 0;
+            touched.length = 0;
+
+            for (let t = 0; t < n; t++) {
+                const targetId = this.validIndices[t];
+                const key = feedbackKey(candidateId, targetId);
+                const oldCount = bucketCounts[key];
+                if (oldCount === 0) touched.push(key);
+                const newCount = oldCount + 1;
+                bucketCounts[key] = newCount;
+                sumSquared += 2 * oldCount + 1;
+                if (newCount > worst) worst = newCount;
+            }
+
+            for (let b = 0; b < touched.length; b++) bucketCounts[touched[b]] = 0;
+            const expectedRemaining = sumSquared / n;
+            if (expectedRemaining < bestExpected ||
+                (expectedRemaining === bestExpected && worst < bestWorst)) {
+                bestExpected = expectedRemaining;
+                bestWorst = worst;
+                bestId = candidateId;
+            }
+        }
+
+        OPENING_CACHE_10A.set(cacheKey, bestId);
+        return bestId;
+    }
+
+    selectOptimalSetup09(currentA, currentB, currentC, currentD, currentE) {
         if (this.validCount === 0) return 0;
         if (this.validCount <= 2) return this.validIndices[0];
 
@@ -536,7 +595,7 @@ class DriverSession {
         const muD = sumD / sampledCount;
         const muE = sumE / sampledCount;
 
-        // STADIO 1: Valuta i candidati e costruisci la lista dei finalisti
+        // STADIO 1: ranking preliminare come prerel04.
         const scoredCandidates = [];
 
         const evalStep = this.validCount > 20000 ? Math.ceil(this.validCount / 8000) : 1;
@@ -581,16 +640,16 @@ class DriverSession {
                 Math.abs(PRIMARY_E[id] - currentE) / 20
             );
 
-            const coarseScore = dPop * 5.0 + segPenalty * 0.5 + distChange * 0.05;
+            const coarseScore = dPop * 10 + segPenalty * 0.5 + distChange * 0.05;
             scoredCandidates.push({ id, coarseScore, distChange });
         }
 
         scoredCandidates.sort((a, b) => a.coarseScore - b.coarseScore);
 
+        // Mantiene i 24 candidati migliori e aggiunge 8 punti di controllo
+        // distribuiti nella classifica per non perdere soluzioni meno ovvie.
         const TOP_M = Math.min(24, scoredCandidates.length);
         const finalists = scoredCandidates.slice(0, TOP_M);
-
-        // Candidati extra distribuiti lungo tutta la classifica (diversita')
         const EXTRA = Math.min(8, scoredCandidates.length - TOP_M);
         if (EXTRA > 0) {
             const stride = (scoredCandidates.length - TOP_M) / EXTRA;
@@ -599,66 +658,56 @@ class DriverSession {
             }
         }
 
-        // STADIO 2: Lookahead a 2 stinti con minimax sul caso peggiore
-        const N_SAMPLE = Math.min(this.validCount, 400);
+        // STADIO 2: minimizza residuo atteso e penalizza il bucket peggiore.
+        const N_SAMPLE = Math.min(this.validCount, 300);
         const sStep = this.validCount / N_SAMPLE;
         const sampleIds = new Int32Array(N_SAMPLE);
         for (let i = 0; i < N_SAMPLE; i++) {
             sampleIds[i] = this.validIndices[Math.floor(i * sStep)];
         }
 
-        const K2 = 16;               // candidati C2 valutati per ogni bucket
-        const TIME_BUDGET_MS = 1200; // limite per non bloccare la UI
-        const deadline = performance.now() + TIME_BUDGET_MS;
-
         let bestId = finalists[0].id;
         let bestScore = Infinity;
+        const bucketCounts = new Uint16Array(7776);
+        const touchedBuckets = [];
 
         for (let f = 0; f < finalists.length; f++) {
-
             const cand = finalists[f];
             const cId = cand.id;
+            let sumSquared = 0;
+            let maxBucket = 0;
+            let pruned = false;
+            touchedBuckets.length = 0;
 
-            // Partizione dei target per feedback ottenuto con C1
-            const buckets = new Map();
+            // Conta le dimensioni dei bucket senza creare Map e array per ogni
+            // feedback. La somma dei quadrati cresce monotonicamente.
             for (let s = 0; s < N_SAMPLE; s++) {
                 const tId = sampleIds[s];
                 const key = feedbackKey(cId, tId);
-                let arr = buckets.get(key);
-                if (!arr) {
-                    arr = [];
-                    buckets.set(key, arr);
+                const oldCount = bucketCounts[key];
+                if (oldCount === 0) {
+                    touchedBuckets.push(key);
                 }
-                arr.push(tId);
-            }
+                const newCount = oldCount + 1;
+                bucketCounts[key] = newCount;
+                sumSquared += 2 * oldCount + 1;
+                if (newCount > maxBucket) maxBucket = newCount;
 
-            let worst1 = 0;
-            let worst2 = 0;
-            let sumSq2 = 0;
-            let pruned = false;
-
-            for (const members of buckets.values()) {
-                if (members.length > worst1) worst1 = members.length;
-
-                const r = bestSecondMove(members, K2);
-                if (r.worst > worst2) {
-                    worst2 = r.worst;
-                    // il punteggio e' >= worst2: se gia' peggiore del migliore, scarta
-                    if (worst2 > bestScore) {
+                // Il punteggio parziale è un limite inferiore del punteggio
+                // finale: se già non può battere il best, interrompi il conteggio.
+                if ((s & 31) === 31 && Number.isFinite(bestScore)) {
+                    const lowerBound = sumSquared / N_SAMPLE + 0.35 * maxBucket + cand.distChange * 0.15;
+                    if (lowerBound >= bestScore) {
                         pruned = true;
                         break;
                     }
                 }
-                sumSq2 += r.sumSq;
             }
 
+            for (let b = 0; b < touchedBuckets.length; b++) bucketCounts[touchedBuckets[b]] = 0;
             if (pruned) continue;
 
-            const expected2 = sumSq2 / N_SAMPLE;
-            const score = worst2 * 0.7 +
-                    expected2 * 0.575 +
-                    worst1 * 0.0375 +
-                    cand.distChange * 0.055;
+            const score = sumSquared / N_SAMPLE + 0.35 * maxBucket + cand.distChange * 0.15;
 
             if (score < bestScore) {
                 bestScore = score;
@@ -668,6 +717,174 @@ class DriverSession {
 
         return bestId;
     }
+
+    selectExploratorySetup11B(currentA, currentB, currentC, currentD, currentE) {
+        if (this.validCount === 0) return 0;
+        if (this.validCount <= 2) return this.validIndices[0];
+
+        // 1. Calcola medie empiriche della popolazione di candidati validi rimasti
+        let sumA = 0, sumB = 0, sumC = 0, sumD = 0, sumE = 0;
+        const sampleStep = this.validCount > 10000 ? Math.ceil(this.validCount / 5000) : 1;
+        let sampledCount = 0;
+
+        for (let i = 0; i < this.validCount; i += sampleStep) {
+            const id = this.validIndices[i];
+            sumA += SEC_A[id];
+            sumB += SEC_B[id];
+            sumC += SEC_C[id];
+            sumD += SEC_D[id];
+            sumE += SEC_E[id];
+            sampledCount++;
+        }
+
+        const muA = sumA / sampledCount;
+        const muB = sumB / sampledCount;
+        const muC = sumC / sampledCount;
+        const muD = sumD / sampledCount;
+        const muE = sumE / sampledCount;
+
+        // STADIO 1: ranking preliminare come prerel04.
+        const scoredCandidates = [];
+
+        // Query pool: ipotesi ancora valide più un campione regolare dell'intero
+        // spazio legale. Una prova può essere informativa anche se è già esclusa
+        // come possibile obiettivo.
+        const queryIds = [];
+        const seenQueryIds = new Set();
+        const addQuery = id => {
+            if (!seenQueryIds.has(id)) {
+                seenQueryIds.add(id);
+                queryIds.push(id);
+            }
+        };
+        const validEvalStep = this.validCount > 20000 ? Math.ceil(this.validCount / 8000) : 1;
+        for (let i = 0; i < this.validCount; i += validEvalStep) addQuery(this.validIndices[i]);
+        const globalStep = Math.ceil(TOTAL_COMBINATIONS / 12000);
+        for (let id = 0; id < TOTAL_COMBINATIONS; id += globalStep) addQuery(id);
+        const currentId = (((currentA * 15 + currentB) * 9 + currentC) * 17 + currentD) * 21 + currentE;
+        addQuery(currentId);
+
+        for (let i = 0; i < queryIds.length; i++) {
+            const id = queryIds[i];
+            const vA = SEC_A[id], vB = SEC_B[id], vC = SEC_C[id], vD = SEC_D[id], vE = SEC_E[id];
+
+            const dPop = (
+                (vA - muA) * (vA - muA) +
+                (vB - muB) * (vB - muB) +
+                (vC - muC) * (vC - muC) +
+                (vD - muD) * (vD - muD) +
+                (vE - muE) * (vE - muE)
+            );
+
+            let segPenalty = 0;
+            const vals = [vA, vB, vC, vD, vE];
+            for (let k = 0; k < 5; k++) {
+                const val = vals[k];
+                const iSet = this.currentIntervals[k];
+                let bestNormDist = 1.0;
+
+                for (let j = 0; j < iSet.intervals.length; j++) {
+                    const [s, e] = iSet.intervals[j];
+                    if (val >= s - 1e-6 && val <= e + 1e-6) {
+                        const mid = (s + e) * 0.5;
+                        const halfSpan = Math.max(0.005, (e - s) * 0.5);
+                        const dist = Math.abs(val - mid) / halfSpan;
+                        if (dist < bestNormDist) {
+                            bestNormDist = dist;
+                        }
+                    }
+                }
+                segPenalty += bestNormDist * bestNormDist;
+            }
+
+            const distChange = (
+                Math.abs(PRIMARY_A[id] - currentA) / 20 +
+                Math.abs(PRIMARY_B[id] - currentB) / 14 +
+                Math.abs(PRIMARY_C[id] - currentC) / 8 +
+                Math.abs(PRIMARY_D[id] - currentD) / 16 +
+                Math.abs(PRIMARY_E[id] - currentE) / 20
+            );
+
+            // Do not reject a probe because it lies outside the surviving
+            // target intervals: it may still divide the posterior well.
+            const coarseScore = dPop * 10 + distChange * 0.05;
+            scoredCandidates.push({ id, coarseScore, distChange });
+        }
+
+        scoredCandidates.sort((a, b) => a.coarseScore - b.coarseScore);
+
+        // Mantiene i 24 candidati migliori e aggiunge 8 punti di controllo
+        // distribuiti nella classifica per non perdere soluzioni meno ovvie.
+        const TOP_M = Math.min(24, scoredCandidates.length);
+        const finalists = scoredCandidates.slice(0, TOP_M);
+        const EXTRA = Math.min(8, scoredCandidates.length - TOP_M);
+        if (EXTRA > 0) {
+            const stride = (scoredCandidates.length - TOP_M) / EXTRA;
+            for (let x = 0; x < EXTRA; x++) {
+                finalists.push(scoredCandidates[TOP_M + Math.floor(x * stride)]);
+            }
+        }
+
+        // STADIO 2: minimizza residuo atteso e penalizza il bucket peggiore.
+        const N_SAMPLE = Math.min(this.validCount, 300);
+        const sStep = this.validCount / N_SAMPLE;
+        const sampleIds = new Int32Array(N_SAMPLE);
+        for (let i = 0; i < N_SAMPLE; i++) {
+            sampleIds[i] = this.validIndices[Math.floor(i * sStep)];
+        }
+
+        let bestId = finalists[0].id;
+        let bestScore = Infinity;
+        const bucketCounts = new Uint16Array(7776);
+        const touchedBuckets = [];
+
+        for (let f = 0; f < finalists.length; f++) {
+            const cand = finalists[f];
+            const cId = cand.id;
+            let sumSquared = 0;
+            let maxBucket = 0;
+            let pruned = false;
+            touchedBuckets.length = 0;
+
+            // Conta le dimensioni dei bucket senza creare Map e array per ogni
+            // feedback. La somma dei quadrati cresce monotonicamente.
+            for (let s = 0; s < N_SAMPLE; s++) {
+                const tId = sampleIds[s];
+                const key = feedbackKey(cId, tId);
+                const oldCount = bucketCounts[key];
+                if (oldCount === 0) {
+                    touchedBuckets.push(key);
+                }
+                const newCount = oldCount + 1;
+                bucketCounts[key] = newCount;
+                sumSquared += 2 * oldCount + 1;
+                if (newCount > maxBucket) maxBucket = newCount;
+
+                // Il punteggio parziale è un limite inferiore del punteggio
+                // finale: se già non può battere il best, interrompi il conteggio.
+                if ((s & 31) === 31 && Number.isFinite(bestScore)) {
+                    const lowerBound = sumSquared / N_SAMPLE + 0.35 * maxBucket + cand.distChange * 0.15;
+                    if (lowerBound >= bestScore) {
+                        pruned = true;
+                        break;
+                    }
+                }
+            }
+
+            for (let b = 0; b < touchedBuckets.length; b++) bucketCounts[touchedBuckets[b]] = 0;
+            if (pruned) continue;
+
+            const score = sumSquared / N_SAMPLE + 0.35 * maxBucket + cand.distChange * 0.15;
+
+            if (score < bestScore) {
+                bestScore = score;
+                bestId = cId;
+            }
+        }
+
+        return bestId;
+    }
+
 
     calculate() {
         const curA = parseInt(this.sliders.A.value, 10);
@@ -679,6 +896,7 @@ class DriverSession {
         const [cal_a, cal_b, cal_c, cal_d, cal_e] = calcola_secondarie(curA, curB, curC, curD, curE);
         const testVals = [cal_a, cal_b, cal_c, cal_d, cal_e];
         const feedbacks = this.getFeedbackState();
+        if (feedbacks.some(f => f === 'p' || f === 'm')) this.sawBadFeedback = true;
 
         const hasFeedback = feedbacks.some(f => f !== 'u');
         if (!hasFeedback) {
@@ -825,6 +1043,7 @@ class DriverSession {
         }
 
         this.iterationCount = 0;
+        this.sawBadFeedback = false;
         this.validCount = TOTAL_COMBINATIONS;
         for (let i = 0; i < TOTAL_COMBINATIONS; i++) {
             this.validIndices[i] = i;
